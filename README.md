@@ -11,7 +11,7 @@ It's a 2-player game currently, with 2 players facing each other in a game of fo
           Pass/Sprint:   V 
           Shoot/Tackle:  X
           
-## Player 1: 
+## Player 2: 
           Movement:      Up,Down,Left,Right
           Change player: M
           Pass/Sprint:   < 
