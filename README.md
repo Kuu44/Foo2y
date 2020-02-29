@@ -1,10 +1,10 @@
 # Foo2y
 A 2D Football game for a C++ Assignment
 
-#About
+# About
 It's a 2-player game currently, with 2 players facing each other in a game of football
 
-#Controls
+# Controls
 Player 1: Movement:      W,A,S,D
           Change player: C
           Pass/Sprint:   V 
