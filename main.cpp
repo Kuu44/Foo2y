@@ -1,6 +1,7 @@
 //camera zoom mode
 #include<iostream>
 #include<SFML\graphics.hpp>
+#include<fstream>
 #include "game.cpp"
 
 using namespace std;

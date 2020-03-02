@@ -10,9 +10,11 @@ extern sf::Vector2i FieldCenter;
 class Field{
 public:
     Field(){
+        imLen=1367;
+        imWid=937;
         set();
-        FieldS.scale(float(4)/1367,float(3)/937);//--(4) | (3)
-        FieldS.setOrigin(1367/2,937/2);
+        FieldS.scale(float(4)/imLen,float(3)/imWid);//--(4) | (3)
+        FieldS.setOrigin(imLen/2,imWid/2);
         FieldS.setPosition(Vector2f(FieldCenter));
         FieldS.scale(fieldScale,fieldScale);
     }
@@ -27,4 +29,6 @@ public:
 private:
     Texture FieldT;
     Sprite FieldS;
+    int imLen;
+    int imWid;
 };

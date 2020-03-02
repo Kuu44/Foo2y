@@ -30,6 +30,7 @@ public:
         Cir.setOutlineColor(Color(0,255,0,100));
         Cir.scale(fieldScale,fieldScale);
         Scale=sf::Vector2f((2-playerSize)*fieldScale,(1.5-playerSize)*fieldScale);
+        set_bounceFac(1);
         //(fieldScale*2-playerSize-playerOutline,fieldScale*1.5-playerSize-playerOutline);
     }
     void setName(string naam){
@@ -96,7 +97,14 @@ public:
         return posInWin;
     }
     sf::Vector2f getSpeed() { return velocity; }
-
+    void set_bounceFac(float f){
+        if(f>=0&&f<=1){
+                bounceFac=f;
+        }
+    }
+    float get_bounceFac(){
+        return bounceFac;
+    }
 private:
     void incPositionLow(int virt, float x=0,float y=0){                      //(int x=1,int y=1){
         v_posInField=posInField;
@@ -148,6 +156,7 @@ private:
     float MaxSpeed;
     sf::Vector2f velocity;
     sf::Vector2f Scale;
+    float bounceFac;
     //friend sf::Vector2f teamoperator-(player a,player b);
 };
 

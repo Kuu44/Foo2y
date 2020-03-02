@@ -1,5 +1,6 @@
 #include<iostream>
 #include<SFML\graphics.hpp>
+#include<cmath>
 #ifndef ballCPP
     #define ballCPP
     #include"ball.cpp"
@@ -24,6 +25,7 @@ public:
     team(string naam,int s):name(naam),side(s),ch_aktv_flag(1){
         side=(side>=0)?-1:1;
         for(int i=0;i<TeamSize;i++){
+                passSpeed=25.0f;
             players[i].setName(string(1,'A'+i));
             players[i].setNum(i+1);
 
@@ -67,7 +69,7 @@ public:
            // players[aktv].setSpeed(-players[aktv].getSpeed());
         }
     }
-    void giveInput(Keyboard::Key left,Keyboard::Key right,Keyboard::Key up,Keyboard::Key down,Keyboard::Key changeKey,team* an_team,ball* football,Time deltaTime)
+    void giveInput(Keyboard::Key left,Keyboard::Key right,Keyboard::Key up,Keyboard::Key down,Keyboard::Key changeKey,Keyboard::Key passKey,team* an_team,ball* football,Time deltaTime)
     {
         Vector2f input(0,0);
         float speed=0.5f;
@@ -82,6 +84,11 @@ public:
         }
         if(Keyboard::isKeyPressed(down)){
             input.y=speed;
+        }
+        if(Keyboard::isKeyPressed(passKey)){
+            Vector2f direction = football->getPosInWin()- players[aktv].get_posInWin();
+            cout << "Ball Dir: (" << direction.x << " , " << direction.y << ")\n";
+            football->incSpeed(makeUnitVector(direction) * passSpeed);
         }
         if(Keyboard::isKeyPressed(changeKey)){
             if(ch_aktv_flag){
@@ -120,12 +127,22 @@ public:
     }
     void check(ball* football)
     {
-        for(int i=0;i<=TeamSize*0;i++){
+        for(int i=0;i<TeamSize;i++){
             football->withBall(players+i,i==aktv);
+                //return 1;
         }
     }
 
 private:
+    static sf::Vector2f makeUnitVector(Vector2f v)
+    {
+        float mag = magnitude(v);
+        return Vector2f(v.x / mag, v.y / mag);
+    }
+    static float magnitude(sf::Vector2f v)
+    {
+        return sqrt((v.x * v.x) + (v.y * v.y));
+    }
     int noCollisionAfter(float x,float y,team* an_team) {
         int i=0;
         int j=0;
@@ -169,4 +186,5 @@ private:
     player players[TeamSize];//field1.jpg","img//field1.jpg",};
     int aktv;
     bool ch_aktv_flag;
+    float passSpeed;
 };

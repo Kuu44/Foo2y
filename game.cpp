@@ -23,8 +23,8 @@ public:
     }
     void playerskeyUpdate(Time deltaTime)
     {
-        B.giveInput(Keyboard::Left, Keyboard::Right, Keyboard::Up, Keyboard::Down, Keyboard::M, &A, &football, deltaTime);
-        A.giveInput(Keyboard::A,    Keyboard::D,     Keyboard::W,  Keyboard::S,    Keyboard::C, &B, &football, deltaTime);
+         B.giveInput(Keyboard::Left, Keyboard::Right, Keyboard::Up, Keyboard::Down, Keyboard::M, Keyboard::Backslash, &A, &football, deltaTime);
+        A.giveInput(Keyboard::A,    Keyboard::D,     Keyboard::W,  Keyboard::S,    Keyboard::C, Keyboard::Z        , &B, &football, deltaTime);
     }
 
     void ballUpdate(Time deltaTime){

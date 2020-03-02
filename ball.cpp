@@ -53,6 +53,10 @@ public:
         velocity.y += y;
         //setSpeed();
     }
+    void incSpeed(sf::Vector2f v) {
+        velocity += v;
+        //setSpeed();
+    }
     void setSpeed(float x, float y) {
         velocity.x = x;
         velocity.y = y;
@@ -101,17 +105,25 @@ public:
         //cout << "\nSpeed:(" << velocity.x << " ," << velocity.y << " )";
         incSpeed(input.x, input.y);
     }
-    void withBall(player* pl,bool aktv){
+    int withBall(player* pl,bool aktv){
         sf::Vector2f tmp=posInWin-pl->get_posInWin();
         if(tmp.x>-1*p_and_b&&tmp.x<p_and_b){
             if(tmp.y>-1*p_and_b&&tmp.y<p_and_b){
                 *this<<pl;
+                return 1;
             }
         }
     }
     void operator<<(player *p){
-        cout<<"yo";
-        setSpeed();
+        sf::Vector2f tmpPos(posInWin-p->getSpeed());
+        cout<<tmpPos.y<<" , "<<tmpPos.y<<"\n";
+        incSpeed(tmpPos.x*.1,tmpPos.y*.1);
+        sf::Vector2f tmpVel(p->getSpeed());
+        //setSpeed(velocity.x*-1*(p->get_bounceFac()+tmpVel.x),velocity.y*-1*(p->get_bounceFac()+tmpVel.y));
+    }
+    Vector2f getPosInWin()
+    {
+        return posInWin;
     }
 private:
     void incPositionLow(int virt, float x = 0, float y = 0) {                      //(int x=1,int y=1){
