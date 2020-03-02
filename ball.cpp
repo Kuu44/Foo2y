@@ -1,23 +1,22 @@
 #include<iostream>
 #include<SFML\graphics.hpp>
 #ifndef playerCpp
-    #define playerCPP
-    #include "player.cpp"
+        #define playerCPP
+        #include "player.cpp"
 #endif // playerCpp
 
 using namespace std;
 using namespace sf;
-const float ballFieldWidR = .02;
-const float ballSize = ballFieldWidR * 3;
-const float ballOtlnSzR = .2;//outline size ratio
-const float b_posIncUnit = ballSize * .05;
+extern const float playerSize;
 extern const float fieldScale;
 extern sf::Vector2i FieldCenter;
 
 class ball {
 public:
     //Sprite jerseyS;
-    ball() :v_posInField(sf::Vector2f(7, 7)), v_posInWin(sf::Vector2f(7, 7)) {
+    ball() :v_posInField(sf::Vector2f(7, 7)), v_posInWin(sf::Vector2f(7, 7)),
+            ballFieldWidR(.02),ballSize(ballFieldWidR * 3),ballOtlnSzR(.2),b_posIncUnit(ballSize * .05),p_and_b((ballSize+playerSize)*fieldScale)
+     {
         MaxSpeed = 100.0f;
         velocity = sf::Vector2f(0, 0);
         Cir.setPointCount(20);
@@ -102,8 +101,17 @@ public:
         //cout << "\nSpeed:(" << velocity.x << " ," << velocity.y << " )";
         incSpeed(input.x, input.y);
     }
-    void withBall(player* player,bool aktv){
-        ;
+    void withBall(player* pl,bool aktv){
+        sf::Vector2f tmp=posInWin-pl->get_posInWin();
+        if(tmp.x>-1*p_and_b&&tmp.x<p_and_b){
+            if(tmp.y>-1*p_and_b&&tmp.y<p_and_b){
+                *this<<pl;
+            }
+        }
+    }
+    void operator<<(player *p){
+        cout<<"yo";
+        setSpeed();
     }
 private:
     void incPositionLow(int virt, float x = 0, float y = 0) {                      //(int x=1,int y=1){
@@ -156,4 +164,11 @@ private:
     sf::Vector2f velocity;
     sf::Vector2f Scale;
     //friend sf::Vector2f teamoperator-(ball a,ball b);
+
+
+const float ballFieldWidR;
+const float ballSize;
+const float ballOtlnSzR;//outline size ratio
+const float b_posIncUnit;
+const float p_and_b;
 };

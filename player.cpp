@@ -7,14 +7,12 @@
 
 using namespace std;
 using namespace sf;
-namespace plSp{
-    const float playerFieldWidR=.02;
-    const float playerSize=playerFieldWidR*3;
-    const float playerOtlnSzR=.2;//outline size ratio
-    const float posIncUnit=playerSize*.05;
-    const float drag=.01;
-    const float vibrtn=.005;
-}
+const float playerFieldWidR=.02;
+const float playerSize=playerFieldWidR*3;
+const float playerOtlnSzR=.2;//outline size ratio
+const float posIncUnit=playerSize*.05;
+const float drag=.01;
+const float vibrtn=.005;
 extern const float fieldScale;
 extern sf::Vector2i FieldCenter;
 
@@ -25,14 +23,14 @@ public:
         MaxSpeed=10.0f;
         velocity=sf::Vector2f(0,0);
         Cir.setPointCount(20);
-        Cir.setRadius(plSp::playerSize);
-        Cir.setOrigin(plSp::playerSize*(1-plSp::playerOtlnSzR),plSp::playerSize*(1-plSp::playerOtlnSzR));
+        Cir.setRadius(playerSize);
+        Cir.setOrigin(playerSize*(1-playerOtlnSzR),playerSize*(1-playerOtlnSzR));
         Cir.setFillColor(Color(255,0,0,100));
-        Cir.setOutlineThickness(plSp::playerSize*plSp::playerOtlnSzR);
+        Cir.setOutlineThickness(playerSize*playerOtlnSzR);
         Cir.setOutlineColor(Color(0,255,0,100));
         Cir.scale(fieldScale,fieldScale);
-        Scale=sf::Vector2f((2-plSp::playerSize)*fieldScale,(1.5-plSp::playerSize)*fieldScale);
-        //(fieldScale*2-plSp::playerSize-playerOutline,fieldScale*1.5-plSp::playerSize-playerOutline);
+        Scale=sf::Vector2f((2-playerSize)*fieldScale,(1.5-playerSize)*fieldScale);
+        //(fieldScale*2-playerSize-playerOutline,fieldScale*1.5-playerSize-playerOutline);
     }
     void setName(string naam){
         name=naam;
@@ -64,11 +62,11 @@ public:
     void incSpeed(Vector2f inputSpeed){
         inputSpeed.x*=.1;inputSpeed.y*=.1;
         velocity += inputSpeed;
-        velocity-=velocity*plSp::drag;
-        if(velocity.x>-1*plSp::vibrtn&&velocity.x<plSp::vibrtn){
+        velocity-=velocity*drag;
+        if(velocity.x>-1*vibrtn&&velocity.x<vibrtn){
             velocity.x=0;
         }
-        if(velocity.y>-1*plSp::vibrtn&&velocity.y<plSp::vibrtn){
+        if(velocity.y>-1*vibrtn&&velocity.y<vibrtn){
             velocity.y=0;
         }
         setSpeed();
@@ -94,13 +92,16 @@ public:
     sf::Vector2f operator-(player p){
         return (sf::Vector2f(v_posInWin.x-p.v_posInWin.x,v_posInWin.y-p.v_posInWin.y));
     }
+    sf::Vector2f get_posInWin(){
+        return posInWin;
+    }
     sf::Vector2f getSpeed() { return velocity; }
 
 private:
     void incPositionLow(int virt, float x=0,float y=0){                      //(int x=1,int y=1){
         v_posInField=posInField;
-        v_posInField.x+=x*plSp::posIncUnit*velocity.x;
-        v_posInField.y+=y*plSp::posIncUnit*velocity.y;
+        v_posInField.x+=x*posIncUnit*velocity.x;
+        v_posInField.y+=y*posIncUnit*velocity.y;
         setPositionI(virt);
         //cout << " Move: (" << x << " , " << y << ")\n";
     }

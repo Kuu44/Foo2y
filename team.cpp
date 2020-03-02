@@ -14,8 +14,8 @@ using namespace std;
 using namespace sf;
 
 const int TeamSize=7;
-extern const float plSp::posIncUnit;
-extern const float plSp::playerSize;
+extern const float posIncUnit;
+extern const float playerSize;
 extern const float fieldScale;
 const int ch_aktv_count_M=777*.7*.7*.7;
 
@@ -120,7 +120,7 @@ public:
     }
     void check(ball* football)
     {
-        for(int i=0;i<TeamSize;i++){
+        for(int i=0;i<=TeamSize*0;i++){
             football->withBall(players+i,i==aktv);
         }
     }
@@ -155,7 +155,7 @@ private:
     }
     int wCollide(player& a,player& b){
         sf::Vector2f just=a-b;
-        float pS=plSp::playerSize*fieldScale;
+        float pS=playerSize*fieldScale;
         if(just.x<=2*pS&&just.x>=-2*pS){
             if(just.y<=2*pS&&just.y>=-2*pS){                    //Ignore-->//If we replace either of the ps in this line with playerSize, we get an exception
                 return 1;
