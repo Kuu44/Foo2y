@@ -34,7 +34,7 @@ int main()
     //w.setFramerateLimit(20);
     Clock frameClock;
     w.clear();
-    sf::Event event;//,event1;
+    sf::Event event{};//,event1;
     game g;
     Clock clk;
     MODE mode_Flag;

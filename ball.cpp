@@ -11,8 +11,10 @@ extern const float playerSize;
 extern const float fieldScale;
 extern sf::Vector2i FieldCenter;
 
+
 class ball {
 public:
+    
     //Sprite jerseyS;
     ball() :v_posInField(sf::Vector2f(7, 7)), v_posInWin(sf::Vector2f(7, 7)),
             ballFieldWidR(.015),ballSize(ballFieldWidR * 3),ballOtlnSzR(.2),b_posIncUnit(ballSize * .05),
@@ -30,6 +32,7 @@ public:
         SpeedScale=MaxSpeed*.9;
         Scale = sf::Vector2f((2 - ballSize) * fieldScale, (1.5 - ballSize) * fieldScale);//(fieldScale*2-ballSize-ballOutline,fieldScale*1.5-ballSize-ballOutline);
         vibrtn=.0001;
+        incPosition(0,0.5f,0);
     }
     void setName(string naam) {
         name = naam;
@@ -95,12 +98,15 @@ public:
         float speed = 1.0f;
         if (Keyboard::isKeyPressed(Keyboard::J)) {
             input.x += -speed;
+            currentSide = TeamB;
         }
         if (Keyboard::isKeyPressed(Keyboard::L)) {
             input.x += speed;
+            currentSide = TeamA;
         }
         if (Keyboard::isKeyPressed(Keyboard::I)) {
             input.y += -speed;
+            currentSide = None;
         }
         if (Keyboard::isKeyPressed(Keyboard::K)) {
             input.y += speed;
@@ -125,7 +131,7 @@ public:
                 newPosition.y/=Scale.y;
                 //setPosition(newPosition);
                 setSpeed(pl->getSpeed().x,pl->getSpeed().y);
-                std::cout<<"\nPos:("<<newPosition.x<<" , "<<newPosition.y<<")";
+                //std::cout<<"\nPos:("<<newPosition.x<<" , "<<newPosition.y<<")";
             }
         }
         if(tmp.x>-1*p_and_b&&tmp.x<1*p_and_b){
@@ -136,28 +142,38 @@ public:
         }
         return 0;
     }
-    void passBall(player *p){
+    void passBall(player *p)
+    {
         sf::Vector2f tmpPos(posInWin-p->get_posInWin());
         if(p->getFlag(pass)){
             incSpeed(makeUnitVector(tmpPos)*float(p->get_passSpeed()));
             p->setFlag(false,pass);
         }
     }
-    void operator<<(player *p){
+    void operator<<(player *p)
+    {
         sf::Vector2f tmpPos(posInWin-p->get_posInWin());
         sf::Vector2f tmpVel(p->getSpeed());
-        //if(tmpPos>-1*p_and_b&&tmpPos<-p_and_b)
-
-        //setSpeed(velocity.x*-1*(p->get_bounceFac()+tmpVel.x),velocity.y*-1*(p->get_bounceFac()+tmpVel.y));
-        //incSpeed(tmpPos.x*.1,tmpPos.y*.1);
-
     }
     Vector2f getPosInWin()
     {
         return posInWin;
     }
+    int getCurrentSide()
+    {
+        return currentSide;
+    }
+    void setCurrentSide(CurrentTeam T)
+    {
+        currentSide = T;
+    }
+    sf::Vector2f getFieldPosition()
+    {
+        return posInField;
+    }
 private:
-    void incPositionLow(int virt, float x = 0, float y = 0){                      //(int x=1,int y=1){
+    void incPositionLow(int virt, float x = 0, float y = 0)
+    {                                      //(int x=1,int y=1){
         v_posInField = posInField;
         v_posInField.x += x * b_posIncUnit;//velocity.x*x*b_posIncUnit; yaha pani velocity le multiply gareko cha so duui choti multiply bhairathyo
         v_posInField.y += y * b_posIncUnit;//velocity.y*y*b_posIncUnit;
@@ -248,6 +264,9 @@ private:
     sf::Vector2f velocity;
     sf::Vector2f Scale;
     float vibrtn;
+    
+    //0=TeamA, 1=None, 2=TeamB
+    CurrentTeam currentSide;
     //friend sf::Vector2f teamoperator-(ball a,ball b);
 
 const float ballFieldWidR;
