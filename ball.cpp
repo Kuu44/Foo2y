@@ -13,6 +13,7 @@ extern sf::Vector2i FieldCenter;
 
 class ball {
 public:
+    bool possesionTeamA;
     //Sprite jerseyS;
     ball() :v_posInField(sf::Vector2f(7, 7)), v_posInWin(sf::Vector2f(7, 7)),
             ballFieldWidR(.015),ballSize(ballFieldWidR * 3),ballOtlnSzR(.2),b_posIncUnit(ballSize * .05),
@@ -105,34 +106,39 @@ public:
         if (Keyboard::isKeyPressed(Keyboard::K)) {
             input.y += speed;
         }
+        
         //cout << "\nSpeed:(" << velocity.x << " ," << velocity.y << " )";
         incSpeed(input*(deltaTime*SpeedScale));
     }
-    int withBall(player* pl){
+    void withBall(player* pl){
         sf::Vector2f tmp=posInWin-pl->get_posInWin();
-        if(tmp.x>-1.5*p_and_b&&tmp.x<1.5*p_and_b){
-            if(tmp.y>-1.5*p_and_b&&tmp.y<1.5*p_and_b){
-                passBall(pl);
-                sf::Vector2f unit_dirN;
-                unit_dirN=makeUnitVector(pl->getSpeed());
-                if(magnitude(unit_dirN)==0){
-                    unit_dirN=Vector2f(1,1);
-                }
-                sf::Vector2f playerToBall=unit_dirN*p_and_b;//makeUnitVector(tmp)*p_and_b;
-                prep_playerToBall(playerToBall,unit_dirN,pl);
-                sf::Vector2f newPosition=pl->get_posInWin()-Vector2f(FieldCenter)+playerToBall;
-                newPosition.x/=Scale.x;
-                newPosition.y/=Scale.y;
-                setPosition(newPosition);
-                std::cout<<"\nPos:("<<newPosition.x<<" , "<<newPosition.y<<")";            }
+        //Dribbling Check
+                   
+        //passBall(pl);
+        sf::Vector2f unit_dirN;
+        unit_dirN = makeUnitVector(pl->getSpeed());
+        if (magnitude(unit_dirN) == 0) {
+            unit_dirN = Vector2f(1, 1);
         }
-        if(tmp.x>-1*p_and_b&&tmp.x<1*p_and_b){
-            if(tmp.y>-1*p_and_b&&tmp.y<1*p_and_b){
-                *this<<pl;
-                return 1;
+        sf::Vector2f playerToBall = unit_dirN * p_and_b;//makeUnitVector(tmp)*p_and_b;
+        prep_playerToBall(playerToBall, unit_dirN, pl);
+        sf::Vector2f newPosition = pl->get_posInWin() - Vector2f(FieldCenter) + playerToBall;
+        newPosition.x /= Scale.x;
+        newPosition.y /= Scale.y;
+        setPosition(newPosition);
+        std::cout << "\nPos:(" << newPosition.x << " , " << newPosition.y << ")";
+       
+    }
+    bool checkCollision(player* pl) {
+        sf::Vector2f tmp = posInWin - pl->get_posInWin();
+        if (tmp.x > -1.5 * p_and_b && tmp.x < 1.5 * p_and_b) {
+            if (tmp.y > -1.5 * p_and_b && tmp.y < 1.5 * p_and_b) 
+            {
+                pl->setHasPossesion(true);
+                return true;
             }
-        }
-        return 0;
+        }        
+        return false;
     }
     void passBall(player *p){
         sf::Vector2f tmpPos(posInWin-p->get_posInWin());
@@ -154,6 +160,14 @@ public:
     {
         return posInWin;
     }
+    void setPossesion(bool t) 
+    {
+        inPossesion = t;
+    }
+    void linkPossesionTeamA(bool* t) 
+    {
+        possesionTeamA = t;
+    }
 private:
     void incPositionLow(int virt, float x = 0, float y = 0) {                      //(int x=1,int y=1){
         v_posInField = posInField;
@@ -162,7 +176,8 @@ private:
         setPositionI(virt);
     }
     inline void update_posInWin() {
-        posInWin = sf::Vector2f(FieldCenter.x + posInField.x * Scale.x, FieldCenter.y + posInField.y * Scale.y);
+        posInWin = sf::Vector2f(FieldCenter.x + posInField.x * Scale.x, FieldCenter.y 
+            + posInField.y * Scale.y);
     }
     inline void update_vposInWin() {
         v_posInWin = sf::Vector2f(FieldCenter.x + v_posInField.x * Scale.x, FieldCenter.y + v_posInField.y * Scale.y);
@@ -246,6 +261,8 @@ private:
     sf::Vector2f velocity;
     sf::Vector2f Scale;
     float vibrtn;
+    bool inPossesion;
+    
     //friend sf::Vector2f teamoperator-(ball a,ball b);
 
 const float ballFieldWidR;

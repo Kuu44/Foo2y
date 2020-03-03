@@ -171,6 +171,10 @@ public:
         }
         return flag;
     }
+    void setHasPossesion(bool t)
+    {
+        hasPossesion = t;
+    }
 private:
     void incPositionLow(int virt, float x=0,float y=0){                      //(int x=1,int y=1){
         v_posInField=posInField;
@@ -218,6 +222,7 @@ private:
         else if(posInField.y>=.998)
             velocity.y=(velocity.y>0)?0:velocity.y;
     }
+    
 
     string name;
     short int num;
@@ -234,6 +239,7 @@ private:
     float bounceFac;//0 means perfect control
 
     int passSpeed;
+    bool hasPossesion;
 
     bool pass_flag;
     Direction directions[2];
