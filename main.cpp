@@ -16,7 +16,7 @@ const int max_toBdrawn=20;
 const int winLen=1920/2;
 const int winWid=1080/2;
 const float fieldScale=winWid/3*.95;
-sf::Time deltaTime;
+const int deltaTime=17;
 
 sf::Vector2i FieldCenter(winLen/2,winWid/2);
 
@@ -29,14 +29,14 @@ enum formation {attack,defense,hold};
 int main()
 {
     sf::RenderWindow w(sf::VideoMode(winLen,winWid),"Foo2Y",Style::Default);
-    w.setFramerateLimit(20);
+    //w.setFramerateLimit(20);
     Clock frameClock;
     w.clear();
-    sf::Event event,event1;
+    sf::Event event;//,event1;
     game g;
     Clock clk;
     while(w.isOpen()){
-        while(clk.getElapsedTime().asMilliseconds()<=ProcessTimeMaxms){
+        /*while(clk.getElapsedTime().asMilliseconds()<=ProcessTimeMaxms){
             int yesEvent=1;
             if(event.type!=event1.type){
                 yesEvent=1;
@@ -62,17 +62,21 @@ int main()
                 //g.eventHandle(event);
             }
             g.playerskeyUpdate(deltaTime);
+        }*/
+        while(frameClock.getElapsedTime().asMilliseconds()<deltaTime){
+            if(w.pollEvent(event)){
+                if(event.type==Event::Closed)
+                    w.close();
+            }
         }
-
-
-        g.ballUpdate(deltaTime);
+        g.playerskeyUpdate(.001*deltaTime);
+        g.ballUpdate(.001*deltaTime);
         g.refresh(&w);
         while(clk.getElapsedTime().asMilliseconds()<=CheckPeriodms);
         clk.restart();
-        deltaTime = frameClock.restart();
+        frameClock.restart();
         //cout << "\n"<<deltaTime.asSeconds();
     }
-
 return 0;
 }
 

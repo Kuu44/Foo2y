@@ -25,7 +25,7 @@ public:
     team(string naam,int s):name(naam),side(s),ch_aktv_flag(1){
         side=(side>=0)?-1:1;
         for(int i=0;i<TeamSize;i++){
-                passSpeed=25.0f;
+            //passSpeed=25.0f;
             players[i].setName(string(1,'A'+i));
             players[i].setNum(i+1);
 
@@ -61,34 +61,35 @@ public:
         name=naam;
     }
     void move(float x,float y,team* an_team,ball* football){
-        if(noCollisionAfter(x,y,an_team)){
-            players[aktv].setPosition();
+        for(int i=0;i<TeamSize;i++){
+            if(noCollisionAfter(x,y,an_team,i)){
+                players[i].setPosition();
+            }
         }
-        else
+        /*else
         {
            // players[aktv].setSpeed(-players[aktv].getSpeed());
-        }
+        }*/
     }
-    void giveInput(Keyboard::Key left,Keyboard::Key right,Keyboard::Key up,Keyboard::Key down,Keyboard::Key changeKey,Keyboard::Key passKey,team* an_team,ball* football,Time deltaTime)
+    void giveInput(Keyboard::Key left,Keyboard::Key right,Keyboard::Key up,Keyboard::Key down,Keyboard::Key changeKey,Keyboard::Key passKey,team* an_team,ball* football,float deltaTime)
     {
         Vector2f input(0,0);
-        float speed=0.5f;
         if(Keyboard::isKeyPressed(left)){
-            input.x=-speed;
+            input.x=-1;
         }
         if(Keyboard::isKeyPressed(right)){
-            input.x=speed;
+            input.x=1;
         }
         if(Keyboard::isKeyPressed(up)){
-            input.y=-speed;
+            input.y=-1;
         }
         if(Keyboard::isKeyPressed(down)){
-            input.y=speed;
+            input.y=1;
         }
         if(Keyboard::isKeyPressed(passKey)){
+            players[aktv].setFlag(!(players[aktv].getFlag(pass)),pass);
             Vector2f direction = football->getPosInWin()- players[aktv].get_posInWin();
-            cout << "Ball Dir: (" << direction.x << " , " << direction.y << ")\n";
-            football->incSpeed(makeUnitVector(direction) * passSpeed);
+            //football->incSpeed(makeUnitVector(direction) * passSpeed);
         }
         if(Keyboard::isKeyPressed(changeKey)){
             if(ch_aktv_flag){
@@ -99,9 +100,14 @@ public:
         else{
             ch_aktv_flag=1;
         }
-        players[aktv].incSpeed(input);
+        for(int i=0;i<TeamSize;i++){
+            int tmp=0;
+            if(i==aktv)
+                tmp=1;
+            players[i].incSpeed(input*(deltaTime*tmp));
+        }
         //Vector2f currentMove = players[aktv].getSpeed() * deltaTime.asSeconds();
-        move(deltaTime.asSeconds(),deltaTime.asSeconds(),an_team,football);
+        move(deltaTime,deltaTime,an_team,football);
 
         /*if(input.x==0 && input.y==0)
         {
@@ -128,7 +134,7 @@ public:
     void check(ball* football)
     {
         for(int i=0;i<TeamSize;i++){
-            football->withBall(players+i,i==aktv);
+            football->withBall(players+i);
                 //return 1;
         }
     }
@@ -143,22 +149,22 @@ private:
     {
         return sqrt((v.x * v.x) + (v.y * v.y));
     }
-    int noCollisionAfter(float x,float y,team* an_team) {
+    int noCollisionAfter(float x,float y,team* an_team,int this_pl_N=-1) {
+        if(!(this_pl_N>=0&&this_pl_N<TeamSize))
+            this_pl_N=aktv;
         int i=0;
         int j=0;
         player* P[2]={players,an_team->players};
-        players[aktv].incPosition(x,y,1); //1 for affecting v_*** variables only >< default value is 0
-
-
+        players[this_pl_N].incPosition(x,y,1); //1 for affecting v_*** variables only >< default value is 0
         while(i<TeamSize)
         {
-            if(j==0&&i==aktv)
+            if(j==0&&i==this_pl_N)
             {
                 i++;
                 continue;
             }
             P[j][i].incPosition(0,0); //this must always be called before wCollide to initialise the v_*** variables of required player to the desired value
-            if(wCollide(players[aktv],P[j][i])){
+            if(wCollide(players[this_pl_N],P[j][i])){
                 return 0;
             }
             i++;
@@ -172,9 +178,21 @@ private:
     }
     int wCollide(player& a,player& b){
         sf::Vector2f just=a-b;
+        sf::Vector2f tmp(0,0);
+        sf::Vector2f tmpVel_a=a.getSpeed();
         float pS=playerSize*fieldScale;
-        if(just.x<=2*pS&&just.x>=-2*pS){
-            if(just.y<=2*pS&&just.y>=-2*pS){                    //Ignore-->//If we replace either of the ps in this line with playerSize, we get an exception
+        if(just.x<=2*pS&&just.x>=-2*pS){                   //Ignore-->//If we replace either of the ps in this line with playerSize, we get an exception
+            if(just.y<=2*pS&&just.y>=-2*pS){
+                if(just.x>0)
+                    tmp.x=(tmpVel_a.x<0)?0:tmpVel_a.x;
+                else if(just.x<0)
+                    tmp.x=(tmpVel_a.x>0)?0:tmpVel_a.x;
+                if(just.y>0)
+                    tmp.y=(tmpVel_a.y<0)?0:tmpVel_a.y;
+                else if(just.y<0)
+                    tmp.y=(tmpVel_a.y>0)?0:tmpVel_a.y;
+                a.setSpeed(tmp);
+                //cout<<just.x<<"\t"<<tmp.x<<" , "<<a.getSpeed().y<<"\n";
                 return 1;
             }
         }
@@ -186,5 +204,7 @@ private:
     player players[TeamSize];//field1.jpg","img//field1.jpg",};
     int aktv;
     bool ch_aktv_flag;
-    float passSpeed;
+    //bool passFlag[TeamSize];
+    //bool shootFlag[TeamSize];
+    //float passSpeed;
 };

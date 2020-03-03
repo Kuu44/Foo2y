@@ -21,14 +21,14 @@ public:
         football.draw(w);
         w->display();
     }
-    void playerskeyUpdate(Time deltaTime)
+    void playerskeyUpdate(float deltaTime)
     {
-         B.giveInput(Keyboard::Left, Keyboard::Right, Keyboard::Up, Keyboard::Down, Keyboard::M, Keyboard::Backslash, &A, &football, deltaTime);
+        B.giveInput(Keyboard::Left, Keyboard::Right, Keyboard::Up, Keyboard::Down, Keyboard::M, Keyboard::P, &A, &football, deltaTime);
         A.giveInput(Keyboard::A,    Keyboard::D,     Keyboard::W,  Keyboard::S,    Keyboard::C, Keyboard::Z        , &B, &football, deltaTime);
     }
 
-    void ballUpdate(Time deltaTime){
-        football.updatePosition(deltaTime.asSeconds());
+    void ballUpdate(float deltaTime){
+        football.updatePosition(deltaTime);
         A.check(&football);
         B.check(&football);
     }

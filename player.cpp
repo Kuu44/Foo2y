@@ -1,5 +1,6 @@
 #include<iostream>
 #include<SFML\graphics.hpp>
+#include<cmath>
 /*#ifndef ballCPP
     #define ballCPP
     #include"ball.cpp"
@@ -7,20 +8,24 @@
 
 using namespace std;
 using namespace sf;
+
+enum Flags{pass,shoot};
 const float playerFieldWidR=.02;
 const float playerSize=playerFieldWidR*3;
 const float playerOtlnSzR=.2;//outline size ratio
 const float posIncUnit=playerSize*.05;
-const float drag=.01;
-const float vibrtn=.005;
+//const float drag=.05;
+const float vibrtn=.00084;
+const int speedScale=100;//acceleration=speedScale pixels/sec^2 and speed=velocity pixels/sec
 extern const float fieldScale;
 extern sf::Vector2i FieldCenter;
 
 class player{
 public:
     //Sprite jerseyS;
-    player():v_posInField(sf::Vector2f(7,7)),v_posInWin(sf::Vector2f(7,7)){
-        MaxSpeed=10.0f;
+    player():v_posInField(sf::Vector2f(7,7)),v_posInWin(sf::Vector2f(7,7)),pass_flag(false),passSpeed(25.0f)
+    {
+        MaxSpeed=70.0f;
         velocity=sf::Vector2f(0,0);
         Cir.setPointCount(20);
         Cir.setRadius(playerSize);
@@ -31,6 +36,7 @@ public:
         Cir.scale(fieldScale,fieldScale);
         Scale=sf::Vector2f((2-playerSize)*fieldScale,(1.5-playerSize)*fieldScale);
         set_bounceFac(1);
+        input_speed_store=Vector2f(0,0);
         //(fieldScale*2-playerSize-playerOutline,fieldScale*1.5-playerSize-playerOutline);
     }
     void setName(string naam){
@@ -61,9 +67,20 @@ public:
         setSpeed();
     }*/
     void incSpeed(Vector2f inputSpeed){
-        inputSpeed.x*=.1;inputSpeed.y*=.1;
+        inputSpeed.x*=speedScale;inputSpeed.y*=speedScale;
+        int tmp=1;
+        if(inputSpeed.x<0)
+            tmp=-1;
+        if(input_speed_store.x<tmp*inputSpeed.x)
+            input_speed_store.x=tmp*inputSpeed.x;
+        tmp=1;
+        if(inputSpeed.y<0)
+            tmp=-1;
+        if(input_speed_store.y<tmp*inputSpeed.y)
+            input_speed_store.y=tmp*inputSpeed.y;
+        //tmp=pow(velocity.x*velocity.x+velocity.y*velocity.y,.5);
         velocity += inputSpeed;
-        velocity-=velocity*drag;
+        velocity-=Vector2f(velocity.x*input_speed_store.x/MaxSpeed,velocity.y*input_speed_store.y/MaxSpeed);
         if(velocity.x>-1*vibrtn&&velocity.x<vibrtn){
             velocity.x=0;
         }
@@ -105,6 +122,25 @@ public:
     float get_bounceFac(){
         return bounceFac;
     }
+    bool getFlag(int i=pass){
+        switch(i){
+            case pass:
+                return pass_flag;
+            default:
+                return pass_flag;
+        };
+    }
+    void setFlag(bool flag,int i=pass){
+        switch(i){
+            case pass:
+                pass_flag=flag;
+            default:
+                ;
+        };
+    }
+    int get_passSpeed(){
+        return passSpeed;
+    };
 private:
     void incPositionLow(int virt, float x=0,float y=0){                      //(int x=1,int y=1){
         v_posInField=posInField;
@@ -143,6 +179,14 @@ private:
         velocity.x=(velocity.x>MaxSpeed)?MaxSpeed:velocity.x;
         velocity.y=(velocity.y<-1*MaxSpeed)?-1*MaxSpeed:velocity.y;
         velocity.y=(velocity.y>MaxSpeed)?MaxSpeed:velocity.y;
+        if(posInField.x<=-.996)
+            velocity.x=(velocity.x<0)?0:velocity.x;
+        else if(posInField.x>=.996)
+            velocity.x=(velocity.x>0)?0:velocity.x;
+        if(posInField.y<=-.998)
+            velocity.y=(velocity.y<0)?0:velocity.y;
+        else if(posInField.y>=.998)
+            velocity.y=(velocity.y>0)?0:velocity.y;
     }
 
     string name;
@@ -155,8 +199,13 @@ private:
     CircleShape Cir;
     float MaxSpeed;
     sf::Vector2f velocity;
+    sf::Vector2f input_speed_store;
     sf::Vector2f Scale;
-    float bounceFac;
-    //friend sf::Vector2f teamoperator-(player a,player b);
+    float bounceFac;//0 means perfect control
+
+    int passSpeed;
+
+    bool pass_flag;
+    Vector2i direction;
 };
 

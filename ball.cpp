@@ -15,9 +15,9 @@ class ball {
 public:
     //Sprite jerseyS;
     ball() :v_posInField(sf::Vector2f(7, 7)), v_posInWin(sf::Vector2f(7, 7)),
-            ballFieldWidR(.02),ballSize(ballFieldWidR * 3),ballOtlnSzR(.2),b_posIncUnit(ballSize * .05),p_and_b((ballSize+playerSize)*fieldScale)
+            ballFieldWidR(.015),ballSize(ballFieldWidR * 3),ballOtlnSzR(.2),b_posIncUnit(ballSize * .05),
+            p_and_b((ballSize+playerSize)*fieldScale)
      {
-        MaxSpeed = 100.0f;
         velocity = sf::Vector2f(0, 0);
         Cir.setPointCount(20);
         Cir.setRadius(ballSize);
@@ -26,7 +26,10 @@ public:
         Cir.setOutlineThickness(ballSize * ballOtlnSzR);
         Cir.setOutlineColor(Color(0, 255, 0, 100));
         Cir.scale(fieldScale, fieldScale);
+        MaxSpeed=100;
+        SpeedScale=MaxSpeed*.9;
         Scale = sf::Vector2f((2 - ballSize) * fieldScale, (1.5 - ballSize) * fieldScale);//(fieldScale*2-ballSize-ballOutline,fieldScale*1.5-ballSize-ballOutline);
+        vibrtn=.0001;
     }
     void setName(string naam) {
         name = naam;
@@ -51,11 +54,11 @@ public:
     void incSpeed(float x, float y) {
         velocity.x += x;
         velocity.y += y;
-        //setSpeed();
+        setSpeed();
     }
     void incSpeed(sf::Vector2f v) {
         velocity += v;
-        //setSpeed();
+        setSpeed();
     }
     void setSpeed(float x, float y) {
         velocity.x = x;
@@ -76,7 +79,7 @@ public:
     }
     void updatePosition(float deltaTime)
     {
-        move();
+        move(deltaTime);
         Vector2f tmpV(velocity * deltaTime);
         incPosition(tmpV.x, tmpV.y);
         //increasePosition(velocity*deltaTime);
@@ -84,12 +87,12 @@ public:
     }
     void applyDrag(float deltaTime)
     {
-        velocity -= (1.0f * deltaTime * velocity);
+        velocity -= ((deltaTime*SpeedScale/MaxSpeed) * velocity);
     }
-    void move()
+    void move(float deltaTime)
     {
         Vector2f input(0, 0);
-        float speed = 10.0f;
+        float speed = 1.0f;
         if (Keyboard::isKeyPressed(Keyboard::J)) {
             input.x += -speed;
         }
@@ -103,23 +106,43 @@ public:
             input.y += speed;
         }
         //cout << "\nSpeed:(" << velocity.x << " ," << velocity.y << " )";
-        incSpeed(input.x, input.y);
+        incSpeed(input*(deltaTime*SpeedScale));
     }
-    int withBall(player* pl,bool aktv){
+    int withBall(player* pl){
         sf::Vector2f tmp=posInWin-pl->get_posInWin();
-        if(tmp.x>-1*p_and_b&&tmp.x<p_and_b){
-            if(tmp.y>-1*p_and_b&&tmp.y<p_and_b){
+        if(tmp.x>-1.5*p_and_b&&tmp.x<1.5*p_and_b){
+            if(tmp.y>-1.5*p_and_b&&tmp.y<1.5*p_and_b){
+                passBall(pl);
+                sf::Vector2f ballToPlayer=makeUnitVector(tmp)*p_and_b,p_and_b;
+                sf::Vector2f newPosition=pl->get_posInWin()-Vector2f(FieldCenter)+ballToPlayer;
+                newPosition.x/=Scale.x;
+                newPosition.y/=Scale.y;
+                setPosition(newPosition);
+                std::cout<<"\nPos:("<<newPosition.x<<" , "<<newPosition.y<<")";            }
+        }
+        if(tmp.x>-1*p_and_b&&tmp.x<1*p_and_b){
+            if(tmp.y>-1*p_and_b&&tmp.y<1*p_and_b){
                 *this<<pl;
                 return 1;
             }
         }
+        return 0;
+    }
+    void passBall(player *p){
+        sf::Vector2f tmpPos(posInWin-p->get_posInWin());
+        if(p->getFlag(pass)){
+            incSpeed(makeUnitVector(tmpPos)*float(p->get_passSpeed()));
+            p->setFlag(false,pass);
+        }
     }
     void operator<<(player *p){
-        sf::Vector2f tmpPos(posInWin-p->getSpeed());
-        cout<<tmpPos.y<<" , "<<tmpPos.y<<"\n";
-        incSpeed(tmpPos.x*.1,tmpPos.y*.1);
+        sf::Vector2f tmpPos(posInWin-p->get_posInWin());
         sf::Vector2f tmpVel(p->getSpeed());
+        //if(tmpPos>-1*p_and_b&&tmpPos<-p_and_b)
+
         //setSpeed(velocity.x*-1*(p->get_bounceFac()+tmpVel.x),velocity.y*-1*(p->get_bounceFac()+tmpVel.y));
+        //incSpeed(tmpPos.x*.1,tmpPos.y*.1);
+
     }
     Vector2f getPosInWin()
     {
@@ -162,6 +185,30 @@ private:
         velocity.x = (velocity.x > MaxSpeed) ? MaxSpeed : velocity.x;
         velocity.y = (velocity.y < -1 * MaxSpeed) ? -1 * MaxSpeed : velocity.y;
         velocity.y = (velocity.y > MaxSpeed) ? MaxSpeed : velocity.y;
+        if(velocity.x>-1*vibrtn&&velocity.x<vibrtn){
+            velocity.x=0;
+        }
+        if(velocity.y>-1*vibrtn&&velocity.y<vibrtn){
+            velocity.y=0;
+        }
+        //belows can be removed after ball out system is done
+        if(posInField.x<=-.996)
+            velocity.x=(velocity.x<0)?0:velocity.x;
+        else if(posInField.x>=.996)
+            velocity.x=(velocity.x>0)?0:velocity.x;
+        if(posInField.y<=-.998)
+            velocity.y=(velocity.y<0)?0:velocity.y;
+        else if(posInField.y>=.998)
+            velocity.y=(velocity.y>0)?0:velocity.y;
+    }
+    static sf::Vector2f makeUnitVector(Vector2f v)
+    {
+        float mag = magnitude(v);
+        return Vector2f(v.x / mag, v.y / mag);
+    }
+    static float magnitude(sf::Vector2f v)
+    {
+        return sqrt((v.x * v.x) + (v.y * v.y));
     }
 
     string name;
@@ -173,10 +220,11 @@ private:
     sf::Vector2f v_posInWin;
     CircleShape Cir;
     int MaxSpeed;
+    int SpeedScale;
     sf::Vector2f velocity;
     sf::Vector2f Scale;
+    float vibrtn;
     //friend sf::Vector2f teamoperator-(ball a,ball b);
-
 
 const float ballFieldWidR;
 const float ballSize;
