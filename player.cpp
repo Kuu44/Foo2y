@@ -10,6 +10,7 @@ using namespace std;
 using namespace sf;
 
 enum Flags{pass,shoot};
+enum Direction{und,dayan,bayan,mathi,muni};
 const float playerFieldWidR=.02;
 const float playerSize=playerFieldWidR*3;
 const float playerOtlnSzR=.2;//outline size ratio
@@ -37,6 +38,7 @@ public:
         Scale=sf::Vector2f((2-playerSize)*fieldScale,(1.5-playerSize)*fieldScale);
         set_bounceFac(1);
         input_speed_store=Vector2f(0,0);
+        directions[0]=und; directions[1]=und;
         //(fieldScale*2-playerSize-playerOutline,fieldScale*1.5-playerSize-playerOutline);
     }
     void setName(string naam){
@@ -141,6 +143,34 @@ public:
     int get_passSpeed(){
         return passSpeed;
     };
+    void set_directions(Direction d){
+        if(d==dayan||d==bayan){
+            directions[0]=d;
+        }
+        else if(d==mathi||d==muni){
+            directions[1]=d;
+        }
+        else{
+            directions[0]=und;
+            directions[1]=und;
+        }
+    }
+    bool is_direction(Direction d){
+        bool flag=false;
+        if(d==dayan||d==bayan){
+            if(d==directions[0])
+                flag=true;
+        }
+        else if(d==mathi||d==muni){
+            if(d==directions[1])
+                flag=true;
+        }
+        else{
+            if(d==und)
+                flag=true;
+        }
+        return flag;
+    }
 private:
     void incPositionLow(int virt, float x=0,float y=0){                      //(int x=1,int y=1){
         v_posInField=posInField;
@@ -206,6 +236,6 @@ private:
     int passSpeed;
 
     bool pass_flag;
-    Vector2i direction;
+    Direction directions[2];
 };
 

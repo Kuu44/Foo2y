@@ -113,8 +113,14 @@ public:
         if(tmp.x>-1.5*p_and_b&&tmp.x<1.5*p_and_b){
             if(tmp.y>-1.5*p_and_b&&tmp.y<1.5*p_and_b){
                 passBall(pl);
-                sf::Vector2f ballToPlayer=makeUnitVector(tmp)*p_and_b,p_and_b;
-                sf::Vector2f newPosition=pl->get_posInWin()-Vector2f(FieldCenter)+ballToPlayer;
+                sf::Vector2f unit_dirN;
+                unit_dirN=makeUnitVector(pl->getSpeed());
+                if(magnitude(unit_dirN)==0){
+                    unit_dirN=Vector2f(1,1);
+                }
+                sf::Vector2f playerToBall=unit_dirN*p_and_b;//makeUnitVector(tmp)*p_and_b;
+                prep_playerToBall(playerToBall,unit_dirN,pl);
+                sf::Vector2f newPosition=pl->get_posInWin()-Vector2f(FieldCenter)+playerToBall;
                 newPosition.x/=Scale.x;
                 newPosition.y/=Scale.y;
                 setPosition(newPosition);
@@ -204,11 +210,27 @@ private:
     static sf::Vector2f makeUnitVector(Vector2f v)
     {
         float mag = magnitude(v);
+        if(mag==0)
+            mag=1;
         return Vector2f(v.x / mag, v.y / mag);
     }
     static float magnitude(sf::Vector2f v)
     {
         return sqrt((v.x * v.x) + (v.y * v.y));
+    }
+    void prep_playerToBall(sf::Vector2f& v1,sf::Vector2f v2,player *pl){
+        if(pl->is_direction(dayan)){
+            if(v2.x>0){v1.x*=-1;}
+        }
+        else if(pl->is_direction(bayan)){
+            if(v2.x<0){v1.x*=-1;}
+        }
+        if(pl->is_direction(mathi)){
+            if(v2.y>0){v1.y*=-1;}
+        }
+        else if(pl->is_direction(muni)){
+            if(v2.y<0){v1.y*=-1;}
+        }
     }
 
     string name;

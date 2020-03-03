@@ -74,18 +74,29 @@ public:
     void giveInput(Keyboard::Key left,Keyboard::Key right,Keyboard::Key up,Keyboard::Key down,Keyboard::Key changeKey,Keyboard::Key passKey,team* an_team,ball* football,float deltaTime)
     {
         Vector2f input(0,0);
+        for(int i=0;i<TeamSize;i++){
+            if(i!=aktv) players[i].set_directions(und);
+        }
         if(Keyboard::isKeyPressed(left)){
             input.x=-1;
+            players[aktv].set_directions(dayan);
         }
+        //else{players[aktv].set_directions(und);}
         if(Keyboard::isKeyPressed(right)){
             input.x=1;
+            players[aktv].set_directions(bayan);
         }
+        //else{players[aktv].set_directions(und);}
         if(Keyboard::isKeyPressed(up)){
             input.y=-1;
+            players[aktv].set_directions(mathi);
         }
+        //else{players[aktv].set_directions(und);}
         if(Keyboard::isKeyPressed(down)){
             input.y=1;
+            players[aktv].set_directions(muni);
         }
+        //else{players[aktv].set_directions(und);}
         if(Keyboard::isKeyPressed(passKey)){
             players[aktv].setFlag(!(players[aktv].getFlag(pass)),pass);
             Vector2f direction = football->getPosInWin()- players[aktv].get_posInWin();
