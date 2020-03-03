@@ -7,6 +7,8 @@
 using namespace std;
 using namespace sf;
 
+enum MODE{Game_Settings,Run,Start_Up};
+
 const int CheckPeriodms=15;
 const int RefreshTimeMaxms=1;
 const int Time_BufsPerInput=10;
@@ -35,6 +37,7 @@ int main()
     sf::Event event;//,event1;
     game g;
     Clock clk;
+    MODE mode_Flag;
     while(w.isOpen()){
         /*while(clk.getElapsedTime().asMilliseconds()<=ProcessTimeMaxms){
             int yesEvent=1;
@@ -67,11 +70,20 @@ int main()
             if(w.pollEvent(event)){
                 if(event.type==Event::Closed)
                     w.close();
+                if(event.type==Event::MouseButtonPressed){
+                    //set mode after analysis
+                }
             }
         }
-        g.playerskeyUpdate(.001*deltaTime);
-        g.ballUpdate(.001*deltaTime);
-        g.refresh(&w);
+        mode_Flag=Run;
+        switch(mode_Flag){
+            case Run:
+                g.playerskeyUpdate(.001*deltaTime);
+                g.ballUpdate(.001*deltaTime);
+                g.refresh(&w);
+            case Game_Settings:
+                ;
+        }
         while(clk.getElapsedTime().asMilliseconds()<=CheckPeriodms);
         clk.restart();
         frameClock.restart();

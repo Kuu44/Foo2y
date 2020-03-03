@@ -9,9 +9,11 @@ class game{
 public:
     game():A("A",1),B("B",-1){
         football.setIcolor(Color::White);
-        football.setPosition(Vector2f(0,0));        
+        football.setPosition(Vector2f(0,0));
     }
-    void play();
+    int wh_gm_set(){
+
+    }
     void pause();
     void refresh(RenderWindow* w){
         w->clear();
@@ -28,15 +30,10 @@ public:
     }
 
     void ballUpdate(float deltaTime){
-        possesionTeamA = A.possesionWithTeam= football.possesionTeamA;
-        B.possesionWithTeam = !A.possesionWithTeam;
-
         football.updatePosition(deltaTime);
-        if(possesionTeamA) A.check(&football);
-        else B.check(&football);
+        A.check(&football);
+        B.check(&football);
     }
-    
-   
 private:
     team A;
     team B;
@@ -45,6 +42,5 @@ private:
     Field field;
     float time;
     sf::Vector2i ps;
-    bool possesionTeamA;
 };
 

@@ -24,9 +24,10 @@ extern sf::Vector2i FieldCenter;
 class player{
 public:
     //Sprite jerseyS;
-    player():v_posInField(sf::Vector2f(7,7)),v_posInWin(sf::Vector2f(7,7)),pass_flag(false),passSpeed(25.0f)
+    player():v_posInField(sf::Vector2f(7,7)),v_posInWin(sf::Vector2f(7,7)),pass_flag(false),passSpeed(25.0f),
+             alpha_velocity(0,0),alphaScale(232)
     {
-        MaxSpeed=70.0f;
+        MaxSpeed=100.0f;
         velocity=sf::Vector2f(0,0);
         Cir.setPointCount(20);
         Cir.setRadius(playerSize);
@@ -171,12 +172,7 @@ public:
         }
         return flag;
     }
-
-    void setHasPossesion(bool t)
-    {
-        hasPossesion = t;
-	} 
-void inc_alpha_pos(float x,float y){
+    void inc_alpha_pos(float x,float y){
         sf::Vector2f tmp(alpha_posInField.x+x,alpha_posInField.x+y);
         if(tmp.x>=-1&&tmp.x<=1){
             if(tmp.y>=-1&&tmp.y<=1){
@@ -210,8 +206,14 @@ void inc_alpha_pos(float x,float y){
 private:
     void incPositionLow(int virt, float x=0,float y=0){                      //(int x=1,int y=1){
         v_posInField=posInField;
-        v_posInField.x+=x*posIncUnit*velocity.x;
-        v_posInField.y+=y*posIncUnit*velocity.y;
+        if(ALPHA_MODE){
+            v_posInField.x+=x*posIncUnit*(velocity.x+alpha_velocity.x);
+            v_posInField.y+=y*posIncUnit*(velocity.y+alpha_velocity.y);
+        }
+        else{
+            v_posInField.x+=x*posIncUnit*velocity.x;
+            v_posInField.y+=y*posIncUnit*velocity.y;
+        }
         setPositionI(virt);
         //cout << " Move: (" << x << " , " << y << ")\n";
     }
@@ -239,12 +241,18 @@ private:
             else
                 update_vposInWin();
         }
+        if(ALPHA_MODE){
+            update_alpha_velocity();
+        }
     }
     void setSpeed(){
         velocity.x=(velocity.x<-1*MaxSpeed)?-1*MaxSpeed:velocity.x;
         velocity.x=(velocity.x>MaxSpeed)?MaxSpeed:velocity.x;
         velocity.y=(velocity.y<-1*MaxSpeed)?-1*MaxSpeed:velocity.y;
         velocity.y=(velocity.y>MaxSpeed)?MaxSpeed:velocity.y;
+
+        //tagert direction
+
         if(posInField.x<=-.996)
             velocity.x=(velocity.x<0)?0:velocity.x;
         else if(posInField.x>=.996)
@@ -254,7 +262,6 @@ private:
         else if(posInField.y>=.998)
             velocity.y=(velocity.y>0)?0:velocity.y;
     }
-
     void update_alpha_velocity(){
         Vector2f tmp=alpha_posInWin-posInWin;
         if(magnitude(tmp)>5){
@@ -274,6 +281,7 @@ private:
     {
         return sqrt((v.x * v.x) + (v.y * v.y));
     }
+
     string name;
     short int num;
     //Texture jerseyT;
@@ -286,10 +294,13 @@ private:
     sf::Vector2f velocity;
     sf::Vector2f input_speed_store;
     sf::Vector2f Scale;
+    sf::Vector2f alpha_velocity;
+    sf::Vector2f alpha_posInWin;
+    sf::Vector2f alpha_posInField;
     float bounceFac;//0 means perfect control
-
+    int alphaScale;
+    bool ALPHA_MODE;
     int passSpeed;
-    bool hasPossesion;
 
     bool pass_flag;
     Direction directions[2];

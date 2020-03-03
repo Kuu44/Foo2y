@@ -22,11 +22,12 @@ const int ch_aktv_count_M=777*.7*.7*.7;
 
 class team{
 public:
-    bool possesionWithTeam;
     team(string naam,int s):name(naam),side(s),ch_aktv_flag(1){
         side=(side>=0)?-1:1;
         for(int i=0;i<TeamSize;i++){
             //passSpeed=25.0f;
+            players[i].set_ALPHA_MODE(false);
+            players[i].set_alpha_pos(0.5,-0.5);
             players[i].setName(string(1,'A'+i));
             players[i].setNum(i+1);
 
@@ -121,6 +122,15 @@ public:
         //Vector2f currentMove = players[aktv].getSpeed() * deltaTime.asSeconds();
         move(deltaTime,deltaTime,an_team,football);
 
+        /*if(input.x==0 && input.y==0)
+        {
+            cout << "noPress\n";
+        }*/
+
+       // cout << " Move: (" << currentMove.x << " , " << currentMove.y << ")\n";
+        //move(input.x,input.y,an_team,football);
+
+        //return players;
     }
     void update(){
         for(int i=0;i<TeamSize;i++){
@@ -135,8 +145,11 @@ public:
         aktv=(aktv==TeamSize-1)?0:(aktv+1);
     }
     void check(ball* football)
-    {       
-        football->withBall(players+aktv);
+    {
+        for(int i=0;i<TeamSize;i++){
+            football->withBall(players+i);
+                //return 1;
+        }
     }
 
 private:
@@ -204,7 +217,6 @@ private:
     player players[TeamSize];//field1.jpg","img//field1.jpg",};
     int aktv;
     bool ch_aktv_flag;
-    
     //bool passFlag[TeamSize];
     //bool shootFlag[TeamSize];
     //float passSpeed;
