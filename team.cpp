@@ -27,6 +27,8 @@ public:
         side=(side>=0)?-1:1;
         for(int i=0;i<TeamSize;i++){
             //passSpeed=25.0f;
+            players[i].set_ALPHA_MODE(true);
+            players[i].set_alpha_pos(0.5,-0.5);
             players[i].setName(string(1,'A'+i));
             players[i].setNum(i+1);
 
