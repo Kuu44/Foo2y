@@ -206,3 +206,18 @@ while(w.isOpen()){
 
         }
 */
+//if(tmpFloat*ctrl_det>=magnitude(velocity)||1)
+                //{//ignore this line because of ||true
+                   // if(!(
+                     //       (smOne_has_flag||clkTmp.getElapsedTime().asMilliseconds()<100)&&(
+                       //                                                                         (
+                         //                                                                           magnitude(velocity)>1.03*magnitude(pl->getSpeed())//||(unit_dirN.x*pl->getSpeed().x+unit_dirN.y*pl->getSpeed().x)<=0
+                           //                                                                     )
+                             //                                                               )
+                       //))
+                    //{   cout<<"^^^^^^^^^^^^^^^^"<<((magnitude(velocity)>1.03*magnitude(pl->getSpeed()))?"\tyes":"\tno");cout<<magnitude(velocity)<<"<-ball | player->"<<1.03*magnitude(pl->getSpeed());
+
+                        //std::cout<<"\nPos:("<<newPosition.x<<" , "<<newPosition.y<<")";
+                    //}
+
+               // }

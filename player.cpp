@@ -24,10 +24,10 @@ extern sf::Vector2i FieldCenter;
 class player{
 public:
     //Sprite jerseyS;
-    player():v_posInField(sf::Vector2f(7,7)),v_posInWin(sf::Vector2f(7,7)),pass_flag(false),passSpeed(25.0f),
+    player():v_posInField(sf::Vector2f(7,7)),v_posInWin(sf::Vector2f(7,7)),pass_flag(false),passSpeed(175.0f),
              alpha_velocity(0,0),alphaScale(232)
     {
-        MaxSpeed=100.0f;
+        MaxSpeed=90.0f;
         velocity=sf::Vector2f(0,0);
         Cir.setPointCount(20);
         Cir.setRadius(playerSize);
