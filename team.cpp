@@ -22,40 +22,23 @@ const int ch_aktv_count_M=777*.7*.7*.7;
 
 class team{
 public:
+    
     team(string naam,int s):name(naam),side(s),ch_aktv_flag(1){
+        formationToSet = 2;
         side=(side>=0)?-1:1;
         for(int i=0;i<TeamSize;i++){
             //passSpeed=25.0f;
-            players[i].set_ALPHA_MODE(false);
-            players[i].set_alpha_pos(0.5,-0.5);
+            
             players[i].setName(string(1,'A'+i));
             players[i].setNum(i+1);
+           
+            players[i].set_ALPHA_MODE(true);
 
             players[i].setIcolor((side==1)?Color(255,0,0,100):Color(0,0,255,100));
 
-            switch(i){
-            case 0:
-                players[i].setPosition(Vector2f(side*.1,0));
-                break;
-            case 1:
-                players[i].setPosition(Vector2f(side*.4,.5));
-                break;
-            case 2:
-                players[i].setPosition(Vector2f(side*.4,-.5));
-                break;
-            case 3:
-                players[i].setPosition(Vector2f(side*.7,.7));
-                break;
-            case 4:
-                players[i].setPosition(Vector2f(side*.7,0));
-                break;
-            case 5:
-                players[i].setPosition(Vector2f(side*.7,-.7));
-                break;
-            case 6:
-                players[i].setPosition(Vector2f(side*.9,0));
-                break;
-            }
+            players[i].setPosition(formationsDef[formationToSet][i]);
+            players[i].set_alpha_pos(formationsDef[formationToSet][i]);
+            
         }
         aktv=0;
     }
@@ -73,7 +56,7 @@ public:
            // players[aktv].setSpeed(-players[aktv].getSpeed());
         }*/
     }
-    void giveInput(Keyboard::Key left,Keyboard::Key right,Keyboard::Key up,Keyboard::Key down,Keyboard::Key changeKey,Keyboard::Key passKey,team* an_team,ball* football,float deltaTime)
+    void giveInput(Keyboard::Key left,Keyboard::Key right,Keyboard::Key up,Keyboard::Key down,Keyboard::Key changeKey,Keyboard::Key passKey,team* an_team,ball* football,float deltaTime,team* T)
     {
         Vector2f input(0,0);
         for(int i=0;i<TeamSize;i++){
@@ -102,8 +85,78 @@ public:
         if(Keyboard::isKeyPressed(passKey)){
             players[aktv].setFlag(!(players[aktv].getFlag(pass)),pass);
             Vector2f direction = football->getPosInWin()- players[aktv].get_posInWin();
-            //football->incSpeed(makeUnitVector(direction) * passSpeed);
+           
         }
+        //Attack Mode
+        if (football->getCurrentSide() == (side+1)) 
+        {
+            int n1 = 0, n2 = 0;
+            float distances[TeamSize];
+            for (int i = 0; i < TeamSize; i++)
+            {
+                for (int j = 0; j < TeamSize; j++) {
+                    distances[j] = magnitude(players[i].getFieldPosition() - T->players[j].getFieldPosition());
+                }
+
+                for (int j = 0; j < TeamSize; j++)
+                {
+                    if (distances[n1] > distances[j]) n1 = j;
+                }
+                for (int j = 0; j < TeamSize; j++)
+                {
+                    if (j == n1) break;
+                    if (distances[n2] > distances[j]) n1 = j;
+                }
+
+                sf::Vector2f newTargetPosition,v1,v2;
+                v1 = T->players[n1].getFieldPosition() - football->getFieldPosition();
+                v2 = T->players[n2].getFieldPosition() - football->getFieldPosition();
+                newTargetPosition = football->getFieldPosition()+ v1 + v2;
+
+                if (playerType[formationToSet][i]==2) 
+                {
+                    players[i].set_alpha_pos((side*0.1*-1), players[i].getFieldPosition().y); cout << "Side: " << side << " Defender: P" << i <<endl;
+                }
+                else if (playerType[formationToSet][i] == 3) 
+                { 
+                    players[i].set_alpha_pos((formationsDef[formationToSet][i])); cout << "Side: " << side << " GK: P" << i << endl;
+                }
+                else 
+                {
+                    players[i].set_alpha_pos(newTargetPosition); cout << "Attacker: " << i << endl; 
+                }
+                //cout << "AttackerSide: "<<side<<"Current P:" << i << "Pos: (" << players[i].getFieldPosition().x << " , " << players[i].getFieldPosition().y <<")"<< endl;
+            }
+            //system("pause");
+        }
+        
+        //Defensive mode
+        else {
+            for (int i = 0; i < TeamSize; i++) {
+                float range = 0.1f;
+                if (
+                    (football->getFieldPosition().x < (players[i].getFieldPosition().x + range)
+                        && football->getFieldPosition().x >(players[i].getFieldPosition().x - range))
+                    && (football->getFieldPosition().y<(players[i].getFieldPosition().y + range)
+                        && football->getFieldPosition().y >(players[i].getFieldPosition().y - range))
+                    &&
+                    (
+                    (players[i].getFieldPosition().x < (formationsDef[formationToSet][i].x + (range * 3))
+                        && players[i].getFieldPosition().x >(formationsDef[formationToSet][i].x - (range * 3)))
+                        && (players[i].getFieldPosition().y<(formationsDef[formationToSet][i].y + (range * 3))
+                            && players[i].getFieldPosition().y >(formationsDef[formationToSet][i].y - (range * 3)))
+                        ))
+                {
+                    players[i].set_alpha_pos(football->getFieldPosition());
+                }
+                else
+                {
+                    players[i].set_alpha_pos(formationsDef[formationToSet][i]);
+                }
+            }
+        }
+        //testing done
+
         if(Keyboard::isKeyPressed(changeKey)){
             if(ch_aktv_flag){
                 inc_aktv();
@@ -147,10 +200,11 @@ public:
     void check(ball* football)
     {
         for(int i=0;i<TeamSize;i++){
-            football->withBall(players+i);
+            //football->withBall(players+i);
                 //return 1;
         }
     }
+    
 
 private:
     static sf::Vector2f makeUnitVector(Vector2f v)
@@ -217,6 +271,28 @@ private:
     player players[TeamSize];//field1.jpg","img//field1.jpg",};
     int aktv;
     bool ch_aktv_flag;
+    int formationToSet;
+    //0=Atk 1=Mid 2=Def 3=GK
+    int playerType[3][TeamSize] = {
+        //LolPool
+        {0,0,0,1,2,2,3},
+        //BanterLona
+        {0,1,1,1,2,2,3},
+        //ChewMentos
+        {0,2,2,2,1,1,3}
+    };
+
+    //[0][]= Lolpool, [1][]= BanterLona, [2][]=ChewMentos
+
+    sf::Vector2f formationsDef[3][TeamSize] 
+    = {
+        //LolPool
+    { Vector2f(side * .1,0),Vector2f(side * .2,-.7),Vector2f(side * .2,.7),Vector2f(side * .4, 0) , Vector2f(side * .7,-.4),Vector2f(side * .7,.4),Vector2f(side * .9,0) },
+        //BanterLona
+    { Vector2f(side * .1,0),Vector2f(side * .4,-.7),Vector2f(side * .4,.7),Vector2f(side * .4, 0),Vector2f(side * .7,.4),Vector2f(side * .7,-.4), Vector2f(side * .9,0) },
+        //ChewMentos
+    { Vector2f(side * .1,0),Vector2f(side * .7,.7) ,Vector2f(side * .7,0) ,Vector2f(side * .7,-.7),Vector2f(side * .4,.4),Vector2f(side * .4,-.4), Vector2f(side * .9,0) }
+    };
     //bool passFlag[TeamSize];
     //bool shootFlag[TeamSize];
     //float passSpeed;

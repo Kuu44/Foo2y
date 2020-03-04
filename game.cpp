@@ -5,6 +5,8 @@
 
 using namespace sf;
 
+
+
 class game{
 public:
     game():A("A",1),B("B",-1){
@@ -25,12 +27,13 @@ public:
     }
     void playerskeyUpdate(float deltaTime)
     {
-        B.giveInput(Keyboard::Left, Keyboard::Right, Keyboard::Up, Keyboard::Down, Keyboard::M, Keyboard::P, &A, &football, deltaTime);
-        A.giveInput(Keyboard::A,    Keyboard::D,     Keyboard::W,  Keyboard::S,    Keyboard::C, Keyboard::Z        , &B, &football, deltaTime);
+        B.giveInput(Keyboard::Left, Keyboard::Right, Keyboard::Up, Keyboard::Down, Keyboard::M, Keyboard::P, &A, &football, deltaTime,&A);
+        A.giveInput(Keyboard::A,    Keyboard::D,     Keyboard::W,  Keyboard::S,    Keyboard::C, Keyboard::Z, &B, &football, deltaTime,&B);
     }
 
     void ballUpdate(float deltaTime){
         football.updatePosition(deltaTime);
+
         A.check(&football);
         B.check(&football);
     }
