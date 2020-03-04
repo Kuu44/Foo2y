@@ -187,7 +187,7 @@ public:
         clkTmp.restart();
         sf::Vector2f tmpPos(posInWin-v);
         if(p->getFlag(pass)){//cout<<"hey"<<magnitude(tmpPos)<<playerSize/Scale.x<<"$\n";
-            incPosition(.1,.1);//Vector2f(playerSize/Scale.x*10,playerSize/Scale.y*10);
+            //incPosition(.1,.1);//Vector2f(playerSize/Scale.x*10,playerSize/Scale.y*10);
             setPosition(posInField+Vector2f(playerSize*.1,playerSize*.1));//(playerSize/Scale.x*10,playerSize/Scale.y*10));
 
             incSpeed(makeUnitVector(tmpPos)*float(p->get_passSpeed()));

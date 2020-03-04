@@ -1,6 +1,7 @@
 #include<iostream>
 #include<SFML\graphics.hpp>
 #include<cmath>
+#include<cstdlib>
 #ifndef ballCPP
     #define ballCPP
     #include"ball.cpp"
@@ -58,6 +59,7 @@ public:
     }
     void giveInput(Keyboard::Key left,Keyboard::Key right,Keyboard::Key up,Keyboard::Key down,Keyboard::Key changeKey,Keyboard::Key passKey,team* an_team,ball* football,float deltaTime,team* T)
     {
+        
         Vector2f input(0,0);
         for(int i=0;i<TeamSize;i++){
             if(i!=aktv) players[i].set_directions(und);
@@ -88,6 +90,16 @@ public:
            
         }
         //Attack Mode
+        for (int i = 0; i < TeamSize; i++)
+        {
+            if (i == aktv) {
+                players[i].set_ALPHA_MODE(false);
+            }
+            else
+            {
+                players[i].set_ALPHA_MODE(true);
+            }
+        }
         if (football->getCurrentSide() == (side+1)) 
         {
             int n1 = 0, n2 = 0;
@@ -105,25 +117,34 @@ public:
                 for (int j = 0; j < TeamSize; j++)
                 {
                     if (j == n1) break;
-                    if (distances[n2] > distances[j]) n1 = j;
+                    if (distances[n2] > distances[j]) n2 = j;
                 }
 
                 sf::Vector2f newTargetPosition,v1,v2;
+                
                 v1 = T->players[n1].getFieldPosition() - football->getFieldPosition();
                 v2 = T->players[n2].getFieldPosition() - football->getFieldPosition();
+                
                 newTargetPosition = football->getFieldPosition()+ v1 + v2;
+
+                if (newTargetPosition.x > 0.8f && newTargetPosition.x < 1.0f) newTargetPosition.x = 0.8f;
+                if (newTargetPosition.x < -0.8f && newTargetPosition.x > -1.0f) newTargetPosition.x = -0.8f;
+
+                if (newTargetPosition.y > 0.9f && newTargetPosition.y < 1.0f) newTargetPosition.y = 0.9f;
+                if (newTargetPosition.y < -0.9f && newTargetPosition.y > -1.0f) newTargetPosition.y = -0.9f;
+
 
                 if (playerType[formationToSet][i]==2) 
                 {
-                    players[i].set_alpha_pos((side*0.1*-1), players[i].getFieldPosition().y); cout << "Side: " << side << " Defender: P" << i <<endl;
+                    players[i].set_alpha_pos((side*0.1*-1), players[i].getFieldPosition().y); //cout << "Side: " << side << " Defender: P" << i <<endl;
                 }
                 else if (playerType[formationToSet][i] == 3) 
                 { 
-                    players[i].set_alpha_pos((formationsDef[formationToSet][i])); cout << "Side: " << side << " GK: P" << i << endl;
+                    players[i].set_alpha_pos((formationsDef[formationToSet][i])); //cout << "Side: " << side << " GK: P" << i << endl;
                 }
                 else 
                 {
-                    players[i].set_alpha_pos(newTargetPosition); cout << "Attacker: " << i << endl; 
+                    players[i].set_alpha_pos(newTargetPosition); //cout << "Attacker: " << i << endl; 
                 }
                 //cout << "AttackerSide: "<<side<<"Current P:" << i << "Pos: (" << players[i].getFieldPosition().x << " , " << players[i].getFieldPosition().y <<")"<< endl;
             }
@@ -153,11 +174,21 @@ public:
                 {
                     players[i].set_alpha_pos(formationsDef[formationToSet][i]);
                 }
+                if (playerType[formationToSet][i] == 3)
+                {
+                    if (players[i].getFieldPosition().y > 0.2f)
+                        players[i].set_alpha_pos((formationsDef[formationToSet][i].x), -0.21f);
+                    else if (players[i].getFieldPosition().y < -0.2f)
+                        players[i].set_alpha_pos((formationsDef[formationToSet][i].x), 0.21f);
+                    else
+                        players[i].set_alpha_pos((formationsDef[formationToSet][i].x), -0.21f); //cout << "Side: " << side << " GK: P" << i << endl;
+                }
             }
         }
         //testing done
 
         if(Keyboard::isKeyPressed(changeKey)){
+
             if(ch_aktv_flag){
                 inc_aktv();
                 ch_aktv_flag=0;
@@ -166,6 +197,7 @@ public:
         else{
             ch_aktv_flag=1;
         }
+
         for(int i=0;i<TeamSize;i++){
             int tmp=0;
             if(i==aktv)
@@ -195,12 +227,49 @@ public:
             players[i].draw(tar);
     }
     void inc_aktv(){
-        aktv=(aktv==TeamSize-1)?0:(aktv+1);
+        //cout << "aktv Before:" << aktv << endl;
+        int n1 = 1, n2 = 1;
+        float distances2[TeamSize];
+        
+           
+            for (int j = 0; j < TeamSize; j++) {
+
+                distances2[j] = magnitude(players[aktv].getFieldPosition() - players[j].getFieldPosition());
+                
+            }
+
+            for (int j = 0; j < TeamSize; j++)
+            {
+                if ((distances2[n1] > distances2[j]) && j!=aktv) n1 = j;
+                //cout << "changed: " << n1;
+            }
+            for (int j = 0; j < TeamSize; j++)
+            {
+                if (j == n1) break;
+                if ((distances2[n2] > distances2[j]) && j != aktv) n2 = j;
+            }
+            while (n1 == n2||n2==aktv)
+            {
+                int Random = rand() % TeamSize;
+                n2 = Random;
+            }
+            while (n1 == aktv)
+            {
+                int Random = rand() % TeamSize;
+                n1 = Random;
+            }
+
+            int Random = rand() % 2;
+
+           // cout <<" Options:" << n1 <<" , "<<n2<< endl;
+            aktv = (Random == 0) ? n1 : n2;
+
+            //cout << "aktv After:" << aktv << endl;
     }
     void check(ball* football)
     {
         for(int i=0;i<TeamSize;i++){
-            //football->withBall(players+i);
+            football->withBall(players+i);
                 //return 1;
         }
     }

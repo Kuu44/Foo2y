@@ -27,7 +27,7 @@ public:
     //Sprite jerseyS;
 
     player():v_posInField(sf::Vector2f(7,7)),v_posInWin(sf::Vector2f(7,7)),pass_flag(false),passSpeed(25.0f),
-             alpha_velocity(5,5),alphaScale(232)
+             alpha_velocity(3,3),alphaScale(232)
     {
         MaxSpeed=90.0f;
         velocity=sf::Vector2f(0,0);
