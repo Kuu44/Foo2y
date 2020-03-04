@@ -88,7 +88,7 @@ public:
            
         }
         //Attack Mode
-        if (football->getCurrentSide() != (side+1)) 
+        if (football->getCurrentSide() == (side+1)) 
         {
             int n1 = 0, n2 = 0;
             float distances[TeamSize];
@@ -112,12 +112,22 @@ public:
                 v1 = T->players[n1].getFieldPosition() - football->getFieldPosition();
                 v2 = T->players[n2].getFieldPosition() - football->getFieldPosition();
                 newTargetPosition = football->getFieldPosition()+ v1 + v2;
-                if (players[i].getFieldPosition().x == ) { players[i].set_alpha_pos((side*0.1), players[i].getFieldPosition().y); cout << "Side: " << side << " Defender: P" << i <<endl; }
-                else if (players[i].getFieldPosition() == sf::Vector2f(side * 0.9, 0)) { players[i].set_alpha_pos((formationsDef[formationToSet][i])); }
-                else { players[i].set_alpha_pos(newTargetPosition); }
-                cout << "AttackerSide: "<<side<<"Current P:" << i << "Pos: (" << players[i].getFieldPosition().x << " , " << players[i].getFieldPosition().y <<")"<< endl;
+
+                if (playerType[formationToSet][i]==2) 
+                {
+                    players[i].set_alpha_pos((side*0.1*-1), players[i].getFieldPosition().y); cout << "Side: " << side << " Defender: P" << i <<endl;
+                }
+                else if (playerType[formationToSet][i] == 3) 
+                { 
+                    players[i].set_alpha_pos((formationsDef[formationToSet][i])); cout << "Side: " << side << " GK: P" << i << endl;
+                }
+                else 
+                {
+                    players[i].set_alpha_pos(newTargetPosition); cout << "Attacker: " << i << endl; 
+                }
+                //cout << "AttackerSide: "<<side<<"Current P:" << i << "Pos: (" << players[i].getFieldPosition().x << " , " << players[i].getFieldPosition().y <<")"<< endl;
             }
-            system("pause");
+            //system("pause");
         }
         
         //Defensive mode
@@ -194,10 +204,7 @@ public:
                 //return 1;
         }
     }
-    int[] getPlayerType()
-    {
-        
-    }
+    
 
 private:
     static sf::Vector2f makeUnitVector(Vector2f v)

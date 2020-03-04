@@ -42,133 +42,122 @@ D:\Docs\Coding_Projects\Foo2y\footy2\ball.cpp(33,76): warning C4244: 'argument':
           ]
 D:\Docs\Coding_Projects\Foo2y\footy2\ball.cpp(34,1): warning C4305: '=': truncation from 'double' to 'float'
 D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(21,36): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(268,21): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(290,21): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(266,28): warning C4305: 'argument': truncation from 'double' to 'T'
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(288,28): warning C4305: 'argument': truncation from 'double' to 'T'
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(268,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(290,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(268,67): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(290,67): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(268,90): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(290,90): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(268,115): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(290,115): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(268,139): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(290,139): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(268,162): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(290,162): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,21): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,21): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,1): warning C4305: 'argument': truncation from 'double' to 'T'
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,1): warning C4305: 'argument': truncation from 'double' to 'T'
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,67): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,67): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,90): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,90): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,113): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,113): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,136): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,136): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,161): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,161): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,21): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,21): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,1): warning C4305: 'argument': truncation from 'double' to 'T'
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,1): warning C4305: 'argument': truncation from 'double' to 'T'
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,67): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,67): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,90): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,90): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,114): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,114): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,137): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,137): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,162): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(115,70): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(115,114): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(116,77): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,162): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
@@ -196,133 +185,122 @@ D:\Docs\Coding_Projects\Foo2y\footy2\ball.cpp(33,76): warning C4244: 'argument':
           ]
 D:\Docs\Coding_Projects\Foo2y\footy2\ball.cpp(34,1): warning C4305: '=': truncation from 'double' to 'float'
 D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(21,36): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(268,21): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(290,21): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(266,28): warning C4305: 'argument': truncation from 'double' to 'T'
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(288,28): warning C4305: 'argument': truncation from 'double' to 'T'
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(268,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(290,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(268,67): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(290,67): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(268,90): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(290,90): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(268,115): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(290,115): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(268,139): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(290,139): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(268,162): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(290,162): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,21): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,21): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,1): warning C4305: 'argument': truncation from 'double' to 'T'
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,1): warning C4305: 'argument': truncation from 'double' to 'T'
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,67): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,67): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,90): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,90): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,113): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,113): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,136): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,136): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,161): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,161): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,21): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,21): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,1): warning C4305: 'argument': truncation from 'double' to 'T'
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,1): warning C4305: 'argument': truncation from 'double' to 'T'
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,67): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,67): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,90): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,90): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,114): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,114): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,137): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,137): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,162): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(115,70): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(115,114): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(116,77): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,162): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
@@ -353,133 +331,122 @@ D:\Docs\Coding_Projects\Foo2y\footy2\ball.cpp(33,76): warning C4244: 'argument':
           ]
 D:\Docs\Coding_Projects\Foo2y\footy2\ball.cpp(34,1): warning C4305: '=': truncation from 'double' to 'float'
 D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(21,36): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(268,21): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(290,21): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(266,28): warning C4305: 'argument': truncation from 'double' to 'T'
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(288,28): warning C4305: 'argument': truncation from 'double' to 'T'
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(268,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(290,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(268,67): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(290,67): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(268,90): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(290,90): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(268,115): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(290,115): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(268,139): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(290,139): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(268,162): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(290,162): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,21): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,21): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,1): warning C4305: 'argument': truncation from 'double' to 'T'
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,1): warning C4305: 'argument': truncation from 'double' to 'T'
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,67): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,67): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,90): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,90): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,113): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,113): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,136): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,136): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(270,161): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(292,161): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,21): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,21): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,1): warning C4305: 'argument': truncation from 'double' to 'T'
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,1): warning C4305: 'argument': truncation from 'double' to 'T'
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,67): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,67): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,90): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,90): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,114): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,114): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,137): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,137): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(272,162): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(115,70): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(115,114): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(116,77): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\Docs\Coding_Projects\Foo2y\footy2\team.cpp(294,162): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
