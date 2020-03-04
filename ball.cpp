@@ -98,18 +98,21 @@ public:
         float speed = 1.0f;
         if (Keyboard::isKeyPressed(Keyboard::J)) {
             input.x += -speed;
-            currentSide = TeamB;
         }
         if (Keyboard::isKeyPressed(Keyboard::L)) {
             input.x += speed;
-            currentSide = TeamA;
         }
         if (Keyboard::isKeyPressed(Keyboard::I)) {
             input.y += -speed;
-            currentSide = None;
         }
         if (Keyboard::isKeyPressed(Keyboard::K)) {
             input.y += speed;
+        }
+        if (Keyboard::isKeyPressed(Keyboard::Y)) {
+            currentSide = TeamB;
+        }
+        if (Keyboard::isKeyPressed(Keyboard::U)) {
+            currentSide = TeamA;
         }
         //cout << "\nSpeed:(" << velocity.x << " ," << velocity.y << " )";
         incSpeed(input*(deltaTime*SpeedScale));
