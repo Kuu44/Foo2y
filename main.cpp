@@ -3,8 +3,7 @@
 #include<SFML\graphics.hpp>
 #include<fstream>
 #include "game.cpp"
-#include "Mainmenu.cpp"
-#include "TeamSelect.cpp"
+#include "Menu.h"
 
 using namespace std;
 using namespace sf;
