@@ -12,7 +12,7 @@ using namespace sf;
 enum CurrentTeam { TeamA, None,TeamB};
 enum Flags{pass,shoot};
 enum Direction{und,dayan,bayan,mathi,muni};
-const float playerFieldWidR=.02;
+const float playerFieldWidR=.015;
 const float playerSize=playerFieldWidR*3;
 const float playerOtlnSzR=.2;//outline size ratio
 const float posIncUnit=playerSize*.05;
@@ -25,9 +25,8 @@ extern sf::Vector2i FieldCenter;
 class player{
 public:
     //Sprite jerseyS;
-
-    player():v_posInField(sf::Vector2f(7,7)),v_posInWin(sf::Vector2f(7,7)),pass_flag(false),passSpeed(25.0f),
-             alpha_velocity(3,3),alphaScale(232)
+    player():v_posInField(sf::Vector2f(7,7)),v_posInWin(sf::Vector2f(7,7)),pass_flag(false),passSpeed(200.0f),
+             alpha_velocity(0,0),alphaScale(232)
     {
         MaxSpeed=90.0f;
         velocity=sf::Vector2f(0,0);
@@ -187,30 +186,19 @@ public:
     void set_alpha_pos(player pl){
         set_alpha_pos(posInField.x,posInField.y);
     }
-    sf::Vector2f get_alpha_pos()
+    void set_aplha_pos(sf::Vector2f v)
     {
-         return posInField;
+    set_alpha_pos(v.x,v.y);
     }
     void set_alpha_pos(float x,float y){
         if(x>=-1&&x<=1){
-            if(y>=-1&&y<=1)
-            {
+            if(y>=-1&&y<=1){
                 alpha_posInField.x=x;
                 alpha_posInField.y=y;
                 update_alpha_pos_Win();
                 update_alpha_velocity();
             }
         }
-    }
-    void set_alpha_pos(sf::Vector2f v)
-    {
-        set_alpha_pos(v.x,v.y);
-    }
-    //int 0 for jog, 1 for sprint
-    void setSprintMode(int factor)
-    {
-        if (factor == 0) alpha_velocity = Vector2f(1, 1);
-        else alpha_velocity = Vector2f(5,5);
     }
     void equalise_alpha(){
         alpha_posInField=posInField;
@@ -224,7 +212,6 @@ public:
     {
         return posInField;
     }
-
 private:
     void incPositionLow(int virt, float x=0,float y=0){                      //(int x=1,int y=1){
         v_posInField=posInField;
@@ -286,9 +273,12 @@ private:
     }
     void update_alpha_velocity(){
         Vector2f tmp=alpha_posInWin-posInWin;
-        if(magnitude(tmp)>5){
+        if(magnitude(tmp)>7){
             tmp=makeUnitVector(tmp);
             alpha_velocity=tmp*float(alphaScale);
+        }
+        else{
+            alpha_velocity=sf::Vector2f(0,0);
         }
     }
     void update_alpha_pos_Win(){

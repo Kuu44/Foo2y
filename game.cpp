@@ -5,12 +5,10 @@
 
 using namespace sf;
 
-
-
 class game{
 public:
     game():A("A",1),B("B",-1){
-        football.setIcolor(Color::White);
+        football.setIcolor(Color::Magenta);
         football.setPosition(Vector2f(0,0));
     }
     int wh_gm_set(){
@@ -28,14 +26,27 @@ public:
     void playerskeyUpdate(float deltaTime)
     {
         B.giveInput(Keyboard::Left, Keyboard::Right, Keyboard::Up, Keyboard::Down, Keyboard::M, Keyboard::P, &A, &football, deltaTime,&A);
-        A.giveInput(Keyboard::A,    Keyboard::D,     Keyboard::W,  Keyboard::S,    Keyboard::C, Keyboard::Z, &B, &football, deltaTime,&B);
+        A.giveInput(Keyboard::A,    Keyboard::D,     Keyboard::W,  Keyboard::S,    Keyboard::C, Keyboard::Z        , &B, &football, deltaTime,&B);
     }
 
-    void ballUpdate(float deltaTime){
+    int ballUpdate(float deltaTime){
+        int jhanda=-1;
         football.updatePosition(deltaTime);
-
-        A.check(&football);
-        B.check(&football);
+        jhanda=A.check(&football);
+        if(jhanda==7){
+            return 7;
+        }
+        else if(jhanda==1){
+            football.setCurrentSide(TeamA);
+        }
+        jhanda=B.check(&football);
+        if(jhanda==7){
+            return -7;
+        }
+        else if(jhanda==1){
+            football.setCurrentSide(TeamB);
+        }
+        return 0;
     }
 private:
     team A;
