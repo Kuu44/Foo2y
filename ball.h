@@ -16,12 +16,12 @@ public:
     
     void applyDrag(float);
     void draw(RenderWindow*) const;
-    Vector2f getPosInWin();
     int getCurrentSide();
+    sf::Vector2f getFieldPosition();
+    Vector2f getPosInWin();
     void incPosition(float, float, int);
     void incSpeed(float, float);
     void incSpeed(sf::Vector2f);
-    sf::Vector2f getFieldPosition();
     void move(float);
     void passBall(player*, sf::Vector2f);
     void setCurrentSide(CurrentTeam);
@@ -32,11 +32,12 @@ public:
     void setSpeed(float, float);
     void setOcolor(Color);
     void setIcolor(Color);
+    void updatePosition(float);
+    int withBall(player*, int);
     sf::Vector2f operator-(ball);
     void operator<<(player*);
 
 private:
-
     string name;
     short int num;
     sf::Vector2f posInField;

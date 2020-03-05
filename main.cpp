@@ -2,11 +2,8 @@
 #include<iostream>
 #include<SFML\graphics.hpp>
 #include<fstream>
-#include "game.cpp"
+#include "game.h"
 #include "Menu.h"
-
-using namespace std;
-using namespace sf;
 
 const int CheckPeriodms=15;
 const int RefreshTimeMaxms=1;
@@ -17,22 +14,17 @@ const int winLen=1920;
 const int winWid=1080;
 const float fieldScale=winWid/3*.7;
 const int deltaTime=17;
-
 sf::Vector2i FieldCenter(winLen/2,winWid/2);
 
-//Drawable toBdrawn[];
 enum formation {attack,defense,hold};
-
-//int gameEventHandle(Event event);
 
 int main()
 {
-    Mainmenu m;
-    TeamSelect t;
+    Menu m;
     sf::RenderWindow w(sf::VideoMode(winLen,winWid),"Main Menu",Style::Default);
     int i=m.mainmenu(w);
     w.setTitle("Formations");
-    t.teamselect(w,i);
+    m.teamselect(w,i);
     w.setTitle("Foo2Y");
     //w.setFramerateLimit(20);
     Clock frameClock;

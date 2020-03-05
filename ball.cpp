@@ -30,6 +30,14 @@
     {
         return currentSide;
     }
+    sf::Vector2f ball::getFieldPosition()
+    {
+        return posInField;
+    }
+    sf::Vector2f ball::getPosInWin()
+    {
+        return posInWin;
+    }
     void ball::incPosition(float x = 1, float y = 1, int virt = 0) {
         if (x == 0 && y == 0)
             v_posInWin = posInWin;
@@ -45,14 +53,6 @@
     void ball::incSpeed(sf::Vector2f v) {
         velocity += v;
         setSpeed();
-    }
-    sf::Vector2f ball::getFieldPosition()
-    {
-        return posInField;
-    }
-    sf::Vector2f ball::getPosInWin()
-    {
-        return posInWin;
     }
     void ball::move(float deltaTime)
     {
@@ -79,7 +79,7 @@
         //cout << "\nSpeed:(" << velocity.x << " ," << velocity.y << " )";
         incSpeed(input * (deltaTime * SpeedScale));
     }
-    void passBall(player* p, sf::Vector2f v = sf::Vector2f(7, 7)) {
+    void ball::passBall(player* p, sf::Vector2f v = sf::Vector2f(7, 7)) {
         if (v.x > 1) {
             v = p->get_posInWin();
         }
@@ -93,7 +93,6 @@
             p->setFlag(false, pass);
         }
     }
-
     void ball::setCurrentSide(CurrentTeam T)
     {
         currentSide = T;
@@ -122,19 +121,16 @@
     void ball::setIcolor(Color Ic) {
         Cir.setFillColor(Ic);
     }
-    
-    
-    void updatePosition(float deltaTime)
+    void ball::updatePosition(float deltaTime)
     {
         if(!smOne_has_flag){
             move(deltaTime);//just changes velocity based on user's key press
             Vector2f tmpV(velocity * deltaTime);
             incPosition(tmpV.x, tmpV.y);
-            //increasePosition(velocity*deltaTime);
             applyDrag(deltaTime);
         }
     }
-    int withBall(player* pl,int side){
+    int  ball::withBall(player* pl,int side){
         if(side*(-1)*posInField.x>0.99f-ballSize)
             {
                 if(posInField.y>-0.2f &&posInField.y<0.2f)
@@ -157,7 +153,6 @@
                 }else stick_flag=false;
                 if(stick_flag)
                 {
-                    //cout<<(((unit_dirN.x*pl->getSpeed().x+unit_dirN.y*pl->getSpeed().x)<=0)?"truetrue":"\t\tfalsefalse")<<"\n";
                     smOne_has_flag=true;
                     unit_dirN=makeUnitVector(pl->getSpeed());//reuse of unit_dirN
                     if(magnitude(unit_dirN)==0){
@@ -174,10 +169,8 @@
                 }
                 else if(!stick_flag)
                 {
-                        //cout<<"$$$$$$$$$$$$$$$$$"<<((magnitude(velocity)>1.03*magnitude(pl->getSpeed()))?"\tyes":"\tno");cout<<magnitude(velocity)<<"<-ball | player->"<<1.03*magnitude(pl->getSpeed())<<"\n";
                         smOne_has_flag=false;
                         clkTmp.restart();
-                        //incSpeed(20,20);
                 }
             }
         }
@@ -195,7 +188,6 @@
         else
             return 0;
     }
-    
     sf::Vector2f ball::operator-(ball p) {
         return (sf::Vector2f(v_posInWin.x - p.v_posInWin.x, v_posInWin.y - p.v_posInWin.y));
     }
