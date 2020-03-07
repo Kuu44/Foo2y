@@ -8,10 +8,10 @@
 	#include"ball.h"
 #endif // ballCPP
 
-#ifndef playerH
-#define playerH
-#include"player.h"
-#endif // playerH
+#ifndef playerCPP
+#define playerCPP
+#include"player.cpp"
+#endif // playerCPP
 
 const int TeamSize = 7;
 extern const float posIncUnit;
@@ -25,9 +25,9 @@ public:
 
     int check(ball*);
     void draw(RenderWindow*);
-    void giveInput(Keyboard::Key, Keyboard::Key, Keyboard::Key, Keyboard::Key,
+    void giveInput(Keyboard::Key, Keyboard::Key, Keyboard::Key, Keyboard::Key, 
         Keyboard::Key, Keyboard::Key, team*, ball*, float, team*);
-    void inc_aktv(ball*);
+    void inc_aktv();
     void move(float, float, team*, ball*);
     void set_name(string);
     void update();
@@ -68,4 +68,3 @@ private:
         { Vector2f(side * .1,0),Vector2f(side * .7,.7) ,Vector2f(side * .7,0) ,Vector2f(side * .7,-.7),Vector2f(side * .4,.4),Vector2f(side * .4,-.4), Vector2f(side * .9,0) }
     };
 };
-

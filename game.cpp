@@ -1,48 +1,44 @@
 #include"game.h"
 
-    game::game() : A("A",1),B("B",-1)
+//public
+    game::game():A("A",1),B("B",-1)
     {
         football.setIcolor(Color::Magenta);
-        football.setPosition(Vector2f(0,0));
+        football.setPosition(Vector2f(0,0));//float(.03)/(2-.03)*.5,0));
     }
 
-    int game::ballUpdate(float deltaTime) {
-        int jhanda = -1;
+    int game::ballUpdate(float deltaTime)
+    {
+        int jhanda=-1;
         football.updatePosition(deltaTime);
-        jhanda = A.check(&football);
-        if (jhanda == 7) {
+        jhanda=A.check(&football);
+        if(jhanda==7){
             return 7;
         }
-        else if (jhanda == 1) {
+        else if(jhanda==1){
             football.setCurrentSide(TeamA);
         }
-        jhanda = B.check(&football);
-        if (jhanda == 7) {
+        jhanda=B.check(&football);
+        if(jhanda==7){
             return -7;
         }
-        else if (jhanda == 1) {
+        else if(jhanda==1){
             football.setCurrentSide(TeamB);
         }
         return 0;
     }
-    void game::pause() {};
+
     void game::playerskeyUpdate(float deltaTime)
     {
-        B.giveInput(Keyboard::Num4, Keyboard::Num6, Keyboard::Up, Keyboard::Down, Keyboard::M, Keyboard::P, &A, &football, deltaTime, &A);
-        A.giveInput(Keyboard::A, Keyboard::D, Keyboard::W, Keyboard::S, Keyboard::Q, Keyboard::E, &B, &football, deltaTime, &B);
+        A.giveInput(Keyboard::J,    Keyboard::L,     Keyboard::I,  Keyboard::K,    Keyboard::U, Keyboard::O,     &B, &football, deltaTime,&B);
+        B.giveInput(Keyboard::A,    Keyboard::D,     Keyboard::W,  Keyboard::S,    Keyboard::Q, Keyboard::E,     &A, &football, deltaTime,&A);
     }
-    void game::refresh(RenderWindow* w)
-    {
+
+    void game::refresh(RenderWindow* w){
         w->clear();
         field.draw(w);
         A.draw(w);
         B.draw(w);
         football.draw(w);
-        w->display();
     }
-    int game::wh_gm_set()
-    {
-    }
-    
-
 

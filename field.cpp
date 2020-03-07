@@ -1,15 +1,7 @@
-#include<iostream>
-#include<SFML\graphics.hpp>
-
-using namespace std;
-using namespace sf;
-
-extern const float fieldScale;
-extern sf::Vector2i FieldCenter;
-
-class Field{
-public:
-    Field(){
+#include"field.h"
+//public
+    field::field()
+    {
         imLen=1367;
         imWid=937;
         set();
@@ -18,17 +10,14 @@ public:
         FieldS.setPosition(Vector2f(FieldCenter));
         FieldS.scale(fieldScale,fieldScale);
     }
-    void draw(RenderTarget* tar){
+
+    void field::draw(RenderTarget* tar){
         tar->draw(FieldS);
     }
-    void set(){
+
+    void field::set(){
         if(!FieldT.loadFromFile("img\\field1.jpg"))
             cout<<"err loading texture";
         FieldS.setTexture(FieldT);
     }
-private:
-    Texture FieldT;
-    Sprite FieldS;
-    int imLen;
-    int imWid;
-};
+

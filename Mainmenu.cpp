@@ -5,17 +5,14 @@ class Mainmenu
 public:
     static int mainmenu(sf::RenderWindow& window)
     {
-        std::cout<<"yo";
-//        sf::RenderWindow window(w_h);
-//        sf::RenderWindow window=*w;
         sf::Texture background;
         sf::Sprite backgroundImage;
-        if (!background.loadFromFile("menu.jpg"))
+        if (!background.loadFromFile("img\\menu.jpg"))
             std::cout << "Error" << std::endl;
         backgroundImage.setTexture(background);
         sf::Texture play;
         sf::Sprite playbutton;
-        if (!play.loadFromFile("play.png"))
+        if (!play.loadFromFile("img\\play.png"))
             std::cout << "Can't find the image" << std::endl;
         playbutton.setTexture(play);
         sf::RectangleShape rect(sf::Vector2f(450, 100));
@@ -23,15 +20,12 @@ public:
         rect.setFillColor(sf::Color::White);
         while (window.isOpen())
         {
-            bool break_flag=false;
             sf::Event event;
             while (window.pollEvent(event))
             {
                 if (event.type == sf::Event::Closed)
                 {
-                    //window.close();
-                    break_flag=true;
-                    std::cout<<"yo";
+                    return 1;
                 }
                 if (event.type == sf::Event::MouseButtonPressed)
                 {
@@ -42,18 +36,12 @@ public:
                             return 0;
                         }
                     }
-
                 }
                 window.clear();
                 window.draw(backgroundImage);
                 window.draw(rect);
                 window.draw(playbutton);
                 window.display();
-            }
-            if(break_flag){
-                    window.setVisible(false);
-                    window.clear();
-                    return 1;
             }
         }
         return 0;

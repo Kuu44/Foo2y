@@ -1,10 +1,10 @@
 #pragma once
 #include<iostream>
 #include<SFML\graphics.hpp>
-#ifndef playerCpp
-#define playerCPP
-#include "player.cpp"
-#endif // playerCpp
+#ifndef playerH
+#define playerH
+#include "player.h"
+#endif // playerH
 
 extern const float playerSize;
 extern const float fieldScale;
@@ -13,15 +13,15 @@ extern sf::Vector2i FieldCenter;
 class ball {
 public:
 	ball();
-    
+
     void applyDrag(float);
-    void draw(RenderWindow*) const;
-    int getCurrentSide();
-    sf::Vector2f getFieldPosition();
+    void draw(RenderWindow*);
     Vector2f getPosInWin();
+    int getCurrentSide();
     void incPosition(float, float, int);
     void incSpeed(float, float);
     void incSpeed(sf::Vector2f);
+    sf::Vector2f getFieldPosition();
     void move(float);
     void passBall(player*, sf::Vector2f);
     void setCurrentSide(CurrentTeam);
@@ -33,11 +33,12 @@ public:
     void setOcolor(Color);
     void setIcolor(Color);
     void updatePosition(float);
-    int withBall(player*, int);
-    sf::Vector2f operator-(ball);
+    int withBall(player* ,int );
+    sf::Vector2f operator-(player);
     void operator<<(player*);
 
 private:
+
     string name;
     short int num;
     sf::Vector2f posInField;
@@ -68,7 +69,7 @@ private:
     static sf::Vector2f makeUnitVector(Vector2f);
     static float magnitude(sf::Vector2f);
     void prep_playerToBall(sf::Vector2f&, sf::Vector2f, player*);
-    void setPositionI(int);
+    void setPositionI(int virt=0);
     void setSpeed();
     inline void update_posInWin();
     inline void update_vposInWin();

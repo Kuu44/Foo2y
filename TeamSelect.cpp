@@ -10,7 +10,7 @@ public:
         //sf::RenderWindow window1(sf::VideoMode(1920, 1080), "Foo2y TeamSelection", sf::Style::Fullscreen);
         sf::Texture background1;
         sf::Sprite backgroundImage1;
-        if (!background1.loadFromFile("TeamSelect.jpg"))
+        if (!background1.loadFromFile("img\\TeamSelect.jpg"))
             std::cout << "teamselect photo not found";
         backgroundImage1.setTexture(background1);
         sf::RectangleShape rectArr1(sf::Vector2f(50, 57.735));
@@ -34,7 +34,7 @@ public:
             {
                 if (event.type == sf::Event::Closed)
                 {
-                    window1.close();
+                    return 1;
                 }
                 if (event.type == sf::Event::MouseButtonPressed)
                 {
@@ -92,14 +92,14 @@ public:
             {
                 sf::Texture team0;
                 sf::Sprite lolpool;
-                if (!team0.loadFromFile("team0.jpg"))
+                if (!team0.loadFromFile("img\\team0.jpg"))
                     std::cout << "Error" << std::endl;
                 lolpool.setPosition(sf::Vector2f(200, 220));
                 lolpool.setTexture(team0);
                 window1.draw(lolpool);
                 sf::Texture formation0;
                 sf::Sprite form0;
-                if (!formation0.loadFromFile("formation0.jpg"))
+                if (!formation0.loadFromFile("img\\formation0.jpg"))
                     std::cout << "Error" << std::endl;
                 form0.setPosition(sf::Vector2f(200, 348));
                 form0.setTexture(formation0);
@@ -109,14 +109,14 @@ public:
             {
                 sf::Texture team1;
                 sf::Sprite banterlona;
-                if (!team1.loadFromFile("team1.jpg"))
+                if (!team1.loadFromFile("img\\team1.jpg"))
                     std::cout << "Error" << std::endl;
                 banterlona.setPosition(sf::Vector2f(200, 220));
                 banterlona.setTexture(team1);
                 window1.draw(banterlona);
                 sf::Texture formation1;
                 sf::Sprite form1;
-                if (!formation1.loadFromFile("formation1.jpg"))
+                if (!formation1.loadFromFile("img\\formation1.jpg"))
                     std::cout << "Error" << std::endl;
                 form1.setPosition(sf::Vector2f(200, 348));
                 form1.setTexture(formation1);
@@ -126,14 +126,14 @@ public:
             {
                 sf::Texture team2;
                 sf::Sprite chewmentos;
-                if (!team2.loadFromFile("team2.jpg"))
+                if (!team2.loadFromFile("img\\team2.jpg"))
                     std::cout << "Error" << std::endl;
                 chewmentos.setPosition(sf::Vector2f(200, 220));
                 chewmentos.setTexture(team2);
                 window1.draw(chewmentos);
                 sf::Texture formation2;
                 sf::Sprite form2;
-                if (!formation2.loadFromFile("formation2.jpg"))
+                if (!formation2.loadFromFile("img\\formation2.jpg"))
                     std::cout << "Error" << std::endl;
                 form2.setPosition(sf::Vector2f(200, 348));
                 form2.setTexture(formation2);
@@ -143,14 +143,14 @@ public:
             {
                 sf::Texture team0;
                 sf::Sprite lolpool;
-                if (!team0.loadFromFile("team0.jpg"))
+                if (!team0.loadFromFile("img\\team0.jpg"))
                     std::cout << "Error" << std::endl;
                 lolpool.setPosition(sf::Vector2f(1121, 220));
                 lolpool.setTexture(team0);
                 window1.draw(lolpool);
                 sf::Texture formation0;
                 sf::Sprite form0;
-                if (!formation0.loadFromFile("formation0.jpg"))
+                if (!formation0.loadFromFile("img\\formation0.jpg"))
                     std::cout << "Error" << std::endl;
                 form0.setPosition(sf::Vector2f(1120, 348));
                 form0.setTexture(formation0);
@@ -160,7 +160,7 @@ public:
             {
                 sf::Texture team1;
                 sf::Sprite banterlona;
-                if (!team1.loadFromFile("team1.jpg"))
+                if (!team1.loadFromFile("img\\team1.jpg"))
                     std::cout << "Error" << std::endl;
                 //std::cout << "no error" << std::endl;
                 banterlona.setPosition(sf::Vector2f(1121, 220));
@@ -168,7 +168,7 @@ public:
                 window1.draw(banterlona);
                 sf::Texture formation1;
                 sf::Sprite form1;
-                if (!formation1.loadFromFile("formation1.jpg"))
+                if (!formation1.loadFromFile("img\\formation1.jpg"))
                     std::cout << "Error" << std::endl;
                 //std::cout << "no error" << std::endl;
                 form1.setPosition(sf::Vector2f(1120, 348));
@@ -179,7 +179,7 @@ public:
             {
                 sf::Texture team2;
                 sf::Sprite chewmentos;
-                if (!team2.loadFromFile("team2.jpg"))
+                if (!team2.loadFromFile("img\\team2.jpg"))
                     std::cout << "Error" << std::endl;
                 //std::cout << "no error" << std::endl;
                 chewmentos.setPosition(sf::Vector2f(1121, 220));
@@ -187,7 +187,7 @@ public:
                 window1.draw(chewmentos);
                 sf::Texture formation2;
                 sf::Sprite form2;
-                if (!formation2.loadFromFile("formation2.jpg"))
+                if (!formation2.loadFromFile("img\\formation2.jpg"))
                     std::cout << "Error" << std::endl;
                 //std::cout << "no error" << std::endl;
                 form2.setPosition(sf::Vector2f(1120, 348));
@@ -196,7 +196,6 @@ public:
             }
             window1.display();
         }
-
+        return 0;
     }
-    //return 0;
 };
