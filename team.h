@@ -25,10 +25,13 @@ public:
 
     int check(ball*);
     void draw(RenderWindow*);
+    string get_aktv();
+    Color getColor();
     void giveInput(Keyboard::Key, Keyboard::Key, Keyboard::Key, Keyboard::Key,
         Keyboard::Key, Keyboard::Key, team*, ball*, float, team*);
     void inc_aktv(ball*);
     void move(float, float, team*, ball*);
+    void reconfig();
     void set_name(string);
     void update();
 
@@ -46,6 +49,7 @@ private:
     player players[TeamSize];
     int aktv;
     bool ch_aktv_flag;
+    bool ALPHA_ON;
     //[0][]= Lolpool, [1][]= BanterLona, [2][]=ChewMentos
     int formationToSet;
     //0=Atk 1=Mid 2=Def 3=GK
@@ -67,5 +71,6 @@ private:
         //ChewMentos
         { Vector2f(side * .1,0),Vector2f(side * .7,.7) ,Vector2f(side * .7,0) ,Vector2f(side * .7,-.7),Vector2f(side * .4,.4),Vector2f(side * .4,-.4), Vector2f(side * .9,0) }
     };
+    sf::Color kolor;
 };
 

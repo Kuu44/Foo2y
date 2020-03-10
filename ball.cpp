@@ -135,6 +135,8 @@
         }
     }
     int ball::withBall(player* pl,int side){
+        bool stick_flag;
+        bool tmp_flag=false;
         if(side*(-1)*posInField.x>0.99f-float(ballSize)/Scale.x)
             {
                 if(posInField.y>-0.2f &&posInField.y<0.2f)
@@ -145,6 +147,7 @@
         sf::Vector2f tmp=posInWin-pl->get_posInWin();
         if(tmp.x>-1.5*p_and_b&&tmp.x<1.5*p_and_b){
             if(tmp.y>-1.5*p_and_b&&tmp.y<1.5*p_and_b){
+                tmp_flag=true;
                 sf::Vector2f unit_dirN;
                 unit_dirN=makeUnitVector(velocity);
                 float tmpFloat=unit_dirN.x*pl->getSpeed().x+unit_dirN.y*pl->getSpeed().x;
@@ -190,7 +193,7 @@
 
             }
         }
-        if(smOne_has_flag)
+        if(tmp_flag)
             return 1;
         else
             return 0;

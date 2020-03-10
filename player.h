@@ -33,6 +33,8 @@ public:
 
     bool getFlag(int i=pass);
 
+    string getNum();
+
     int get_passSpeed();
 
     sf::Vector2f get_posInWin();
@@ -103,8 +105,6 @@ private:
     bool ALPHA_MODE;
     bool pass_flag;
 
-    short int num;
-
     int alphaScale;
     int passSpeed;
 
@@ -127,6 +127,9 @@ private:
     Direction directions[2];
 
     CircleShape Cir;
+
+    sf::Font font;
+    mutable sf::Text num;
 
 };
 

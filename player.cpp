@@ -17,10 +17,15 @@
         input_speed_store=Vector2f(0,0);
         directions[0]=und; directions[1]=und;
         //(fieldScale*2-playerSize-playerOutline,fieldScale*1.5-playerSize-playerOutline);
+        font.loadFromFile("Fonts\\arial.ttf");
+        num.setFont(font);
+        num.setCharacterSize(20);
     }
 
     void player::draw(RenderWindow* tar) const{
         tar->draw(Cir);
+        num.setPosition(posInWin);
+        tar->draw(num);
     }
 
     void player::equalise_alpha(){
@@ -45,6 +50,10 @@
             default:
                 return pass_flag;
         };
+    }
+
+    string player::getNum(){
+        return num.getString();
     }
 
     int player::get_passSpeed(){
@@ -180,7 +189,13 @@
         name=naam;
     }
     void player::setNum(short int anka){
-        num=anka;
+        char tmp[3];
+        tmp[0]='0'+anka%10;
+        anka/=10;
+        tmp[1]=(anka%10==0)?'\0':('0'+anka%10);
+        tmp[2]='\0';
+        num.setString(tmp);
+        num.setOrigin(num.getLocalBounds().width*.5f,num.getLocalBounds().height*.5f);
     }
 
     void player::setOcolor(Color Oc){

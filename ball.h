@@ -53,7 +53,6 @@ private:
     float vibrtn;
     bool ball_self_flag;
     bool smOne_has_flag;
-    bool stick_flag;
     float ctrl_det;
     Clock clkTmp;
     //0=TeamA, 1=None, 2=TeamB
