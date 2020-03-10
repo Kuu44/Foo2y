@@ -1,7 +1,7 @@
 #include"game.h"
 
 //public
-    game::game():A("A",1),B("B",-1),A_goals(0),B_goals(0),GAME_TIME(20)
+    game::game():A("A",1),B("B",-1),A_goals(0),B_goals(0),GAME_TIME(63)
     {
         football.setIcolor(Color::Magenta);
         football.setPosition(Vector2f(0,0));//float(.03)/(2-.03)*.5,0));
@@ -52,11 +52,11 @@
         string tmpS;
         char tmp[14];
         int sec= clk.getElapsedTime().asSeconds();
-        tmp[0]='0'+GAME_TIME/60-sec/60;
+        tmp[0]='0'+(GAME_TIME-sec)/60;
         tmp[1]=tmp[3]=' ';
         tmp[2]=':';
-        tmp[4]='0'+((GAME_TIME%60)-(sec%60))/10;
-        tmp[5]='0'+((GAME_TIME%60)-(sec%60))%10;
+        tmp[4]='0'+((GAME_TIME-sec)%60)/10;
+        tmp[5]='0'+((GAME_TIME-sec)%60)%10;
         tmp[6]='\n';
         tmp[7]='0'+B_goals;
         tmp[8]=tmp[10]=' ';
