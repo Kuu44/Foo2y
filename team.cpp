@@ -1,24 +1,17 @@
 #include"team.h"
-team::team(string naam, int s) :name(naam), side(s), ch_aktv_flag(1)
+team::team(string naam, int s) :name(naam), side(s), ch_aktv_flag(1),ALPHA_ON(false)
 {
-	side = (side >= 0) ? -1 : 1;
+	side = (side >= 0) ? 1 : -1;
+	kolor=(side == 1) ? Color(255, 0, 0, 100) : Color(0, 0, 255, 100);
 	for (int i = 0; i < TeamSize; i++) {
 		//passSpeed=25.0f;
 		formationToSet = 2;
-
-
 		players[i].setName(string(1, 'A' + i));
 		players[i].setNum(i + 1);
-
-		players[i].setIcolor((side == 1) ? Color(255, 0, 0, 100) : Color(0, 0, 255, 100));
-
-		players[i].set_ALPHA_MODE(true);
-
-		players[i].setIcolor((side == 1) ? Color(255, 0, 0, 100) : Color(0, 0, 255, 100));
-
-		players[i].setPosition(formationsDef[formationToSet][i]);
+		players[i].setIcolor(kolor);
+		players[i].set_ALPHA_MODE(false);
+        players[i].setPosition(formationsDef[formationToSet][i]);
 		players[i].set_alpha_pos(formationsDef[formationToSet][i].x, formationsDef[formationToSet][i].y);
-
 	}
 	aktv = 0;
 }
@@ -30,14 +23,22 @@ int  team::check(ball* football)
 		int jhanda = football->withBall(players + i, side);
 		if (jhanda == 7)
 			to_return = 7;
-		else if (jhanda == 1)
+		else if (jhanda == 1){
+            aktv=i;
 			to_return = 1;
+		}
 	}
 	return to_return;
 }
 void team::draw(RenderWindow* tar) {
 	for (int i = 0; i < TeamSize; i++)
 		players[i].draw(tar);
+}
+string team::get_aktv(){
+    return players[aktv].getNum();
+}
+Color team::getColor(){
+        return kolor;
 }
 void team::giveInput(Keyboard::Key left, Keyboard::Key right, Keyboard::Key up, Keyboard::Key down, Keyboard::Key changeKey, Keyboard::Key passKey, team* an_team, ball* football, float deltaTime, team* T)
 {
@@ -74,7 +75,7 @@ void team::giveInput(Keyboard::Key left, Keyboard::Key right, Keyboard::Key up, 
 		}
 		else
 		{
-			players[i].set_ALPHA_MODE(true);
+			players[i].set_ALPHA_MODE(ALPHA_ON);
 		}
 	}
 	if (football->getCurrentSide() == (side + 1))//CurrentTeam(side+1))
@@ -165,7 +166,7 @@ void team::giveInput(Keyboard::Key left, Keyboard::Key right, Keyboard::Key up, 
 
 	if (Keyboard::isKeyPressed(changeKey)) {
 		if (ch_aktv_flag) {
-			inc_aktv();
+			inc_aktv(football);
 			ch_aktv_flag = 0;
 		}
 	}
@@ -180,17 +181,22 @@ void team::giveInput(Keyboard::Key left, Keyboard::Key right, Keyboard::Key up, 
 	}
 	move(deltaTime, deltaTime, an_team, football);
 }
-void team::inc_aktv() {
+void team::inc_aktv(ball* football) {
 	bool no_chatak = false;
-	if (magnitude(players[aktv].getSpeed()) != 0) {
-		sf::Vector2f tomp = makeUnitVector(players[aktv].getSpeed());
+	sf::Vector2f tmp=*football-players[aktv];
+	if (magnitude(players[aktv].getSpeed()) != 0){
+        tmp = players[aktv].getSpeed();
+	}
+    if(magnitude(tmp)!=0)
+    {
+        tmp=makeUnitVector(tmp);
 		int target_pl = -1;
 		float tmp_cmpr = -1;
 		for (int i = 0; i < TeamSize; i++) {
 			if (i == aktv)
 				continue;
 			sf::Vector2f rel_vec = makeUnitVector(players[i] - players[aktv]);
-			float tmp2_cmpr = getAngle(rel_vec, tomp);
+			float tmp2_cmpr = getAngle(rel_vec, tmp);
 			if (tmp2_cmpr >= 0 && (tmp2_cmpr < tmp_cmpr || tmp_cmpr < 0)) {
 				target_pl = i;
 				tmp_cmpr = tmp2_cmpr;
@@ -202,7 +208,8 @@ void team::inc_aktv() {
 			aktv = target_pl;
 		}
 	}
-	else { no_chatak = true; }
+	else if(magnitude(tmp)!=0){}
+    else { no_chatak = true; }
 	if (no_chatak)
 		aktv = (aktv < TeamSize - 1) ? aktv + 1 : aktv;
 }
@@ -212,6 +219,12 @@ void team::move(float x, float y, team* an_team, ball* football) {
 			players[i].setPosition();
 		}
 	}
+}
+void team::reconfig(){
+    for(int i=0;i<TeamSize;i++){
+        players[i].setPosition(formationsDef[formationToSet][i]);
+        players[i].setSpeed(0,0);
+    }
 }
 void team::set_name(string naam)
 {

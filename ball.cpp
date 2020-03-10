@@ -12,31 +12,23 @@
         Cir.setFillColor(Color::Green);//(100, 0, 100, 255));
         Cir.setOutlineThickness(ballSize * ballOtlnSzR);
         Cir.setOutlineColor(Color(0, 255, 0, 100));
-        Cir.scale(fieldScale, fieldScale);
-        MaxSpeed=200;
+        MaxSpeed=700;
         SpeedScale=MaxSpeed*.9;
-        Scale = sf::Vector2f((2 - ballSize) * fieldScale, (1.5 - ballSize) * fieldScale);//(fieldScale*2-ballSize-ballOutline,fieldScale*1.5-ballSize-ballOutline);
+        Scale = sf::Vector2f((2.32 - ballSize) * fieldScale, (1.5 - ballSize) * fieldScale);//(fieldScale*2-ballSize-ballOutline,fieldScale*1.5-ballSize-ballOutline);
         vibrtn=.0001;
     }
-    
+
     void ball::applyDrag(float deltaTime)
     {
         velocity -= ((deltaTime * SpeedScale / MaxSpeed) * velocity);
     }
-    void ball::draw(RenderWindow* tar) const {
+    void ball::draw(RenderWindow* tar){
+        Cir.setScale(fieldScale, fieldScale);
         tar->draw(Cir);
     }
     int ball::getCurrentSide()
     {
         return currentSide;
-    }
-    sf::Vector2f ball::getFieldPosition()
-    {
-        return posInField;
-    }
-    sf::Vector2f ball::getPosInWin()
-    {
-        return posInWin;
     }
     void ball::incPosition(float x = 1, float y = 1, int virt = 0) {
         if (x == 0 && y == 0)
@@ -53,6 +45,14 @@
     void ball::incSpeed(sf::Vector2f v) {
         velocity += v;
         setSpeed();
+    }
+    sf::Vector2f ball::getFieldPosition()
+    {
+        return posInField;
+    }
+    sf::Vector2f ball::getPosInWin()
+    {
+        return posInWin;
     }
     void ball::move(float deltaTime)
     {
@@ -93,6 +93,7 @@
             p->setFlag(false, pass);
         }
     }
+
     void ball::setCurrentSide(CurrentTeam T)
     {
         currentSide = T;
@@ -121,17 +122,22 @@
     void ball::setIcolor(Color Ic) {
         Cir.setFillColor(Ic);
     }
+
+
     void ball::updatePosition(float deltaTime)
     {
         if(!smOne_has_flag){
-            move(deltaTime);//just changes velocity based on user's key press
+            //move(deltaTime);//just changes velocity based on user's key press
             Vector2f tmpV(velocity * deltaTime);
             incPosition(tmpV.x, tmpV.y);
+            //increasePosition(velocity*deltaTime);
             applyDrag(deltaTime);
         }
     }
-    int  ball::withBall(player* pl,int side){
-        if(side*(-1)*posInField.x>0.99f-ballSize)
+    int ball::withBall(player* pl,int side){
+        bool stick_flag;
+        bool tmp_flag=false;
+        if(side*(-1)*posInField.x>0.99f-float(ballSize)/Scale.x)
             {
                 if(posInField.y>-0.2f &&posInField.y<0.2f)
                 {
@@ -141,6 +147,7 @@
         sf::Vector2f tmp=posInWin-pl->get_posInWin();
         if(tmp.x>-1.5*p_and_b&&tmp.x<1.5*p_and_b){
             if(tmp.y>-1.5*p_and_b&&tmp.y<1.5*p_and_b){
+                tmp_flag=true;
                 sf::Vector2f unit_dirN;
                 unit_dirN=makeUnitVector(velocity);
                 float tmpFloat=unit_dirN.x*pl->getSpeed().x+unit_dirN.y*pl->getSpeed().x;
@@ -153,6 +160,7 @@
                 }else stick_flag=false;
                 if(stick_flag)
                 {
+                    //cout<<(((unit_dirN.x*pl->getSpeed().x+unit_dirN.y*pl->getSpeed().x)<=0)?"truetrue":"\t\tfalsefalse")<<"\n";
                     smOne_has_flag=true;
                     unit_dirN=makeUnitVector(pl->getSpeed());//reuse of unit_dirN
                     if(magnitude(unit_dirN)==0){
@@ -169,8 +177,10 @@
                 }
                 else if(!stick_flag)
                 {
+                        //cout<<"$$$$$$$$$$$$$$$$$"<<((magnitude(velocity)>1.03*magnitude(pl->getSpeed()))?"\tyes":"\tno");cout<<magnitude(velocity)<<"<-ball | player->"<<1.03*magnitude(pl->getSpeed())<<"\n";
                         smOne_has_flag=false;
                         clkTmp.restart();
+                        //incSpeed(20,20);
                 }
             }
         }
@@ -183,21 +193,22 @@
 
             }
         }
-        if(smOne_has_flag)
+        if(tmp_flag)
             return 1;
         else
             return 0;
     }
-    sf::Vector2f ball::operator-(ball p) {
-        return (sf::Vector2f(v_posInWin.x - p.v_posInWin.x, v_posInWin.y - p.v_posInWin.y));
+
+    sf::Vector2f ball::operator-(player p) {
+        return (sf::Vector2f(posInWin.x - p.get_posInWin().x, posInWin.y - p.get_posInWin().y));
     }
-    void ball::operator<<(player* p) 
+    void ball::operator<<(player* p)
     {
         sf::Vector2f tmpPos(posInWin - p->get_posInWin());
         sf::Vector2f tmpVel(p->getSpeed());
     }
 
-    //Private Functions
+//Private Functions
     void ball::incPositionLow(int virt, float x = 0, float y = 0) {                      //(int x=1,int y=1){
         v_posInField = posInField;
         v_posInField.x += x * b_posIncUnit;//velocity.x*x*b_posIncUnit; yaha pani velocity le multiply gareko cha so duui choti multiply bhairathyo
@@ -229,7 +240,7 @@
             if (v2.y < 0) { v1.y *= -1; }
         }
     }
-    void ball::setPositionI(int virt = 0) {
+    void ball::setPositionI(int virt) {
         int change = 1;
         if (v_posInField.x < -1 || v_posInField.x>1) {
             change = 0;//posInField.x=(posInField.x>1)?1:-1;
@@ -259,15 +270,6 @@
         if(velocity.y>-1*vibrtn&&velocity.y<vibrtn){
             velocity.y=0;
         }
-        //belows can be removed after ball out system is done
-        if(posInField.x<=-.996)
-            velocity.x=(velocity.x<0)?0:velocity.x;
-        else if(posInField.x>=.996)
-            velocity.x=(velocity.x>0)?0:velocity.x;
-        if(posInField.y<=-.998)
-            velocity.y=(velocity.y<0)?0:velocity.y;
-        else if(posInField.y>=.998)
-            velocity.y=(velocity.y>0)?0:velocity.y;
     }
     inline void ball::update_posInWin() {
         posInWin = sf::Vector2f(FieldCenter.x + posInField.x * Scale.x, FieldCenter.y + posInField.y * Scale.y);

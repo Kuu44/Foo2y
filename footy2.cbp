@@ -50,9 +50,14 @@
 			<Add option="-static-libgcc" />
 			<Add directory="SFML-2.5.1-windows-gcc-5.1.0-tdm-32-bit/SFML-2.5.1/lib" />
 		</Linker>
+		<Unit filename="Mainmenu.cpp" />
+		<Unit filename="TeamSelect.cpp" />
 		<Unit filename="ball.cpp" />
+		<Unit filename="ball.h" />
 		<Unit filename="field.cpp" />
+		<Unit filename="field.h" />
 		<Unit filename="game.cpp" />
+		<Unit filename="game.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="player.cpp" />
 		<Unit filename="player.h" />
